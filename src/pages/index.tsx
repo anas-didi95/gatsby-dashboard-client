@@ -1,20 +1,59 @@
-import { Link } from "gatsby"
 import React from "react"
-import Image from "../components/image"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
 
-const IndexPage: React.FC = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+const IndexPage: React.FC<{}> = () => (
+  <section className="hero is-info is-fullheight">
+    <div className="hero-head">
+      <nav className="navbar">
+        <div className="container">
+          <div className="navbar-brand">
+            <a className="navbar-item">
+              <img
+                src="https://bulma.io/images/bulma-type-white.png"
+                alt="Logo"
+              />
+            </a>
+            <span
+              className="navbar-burger burger"
+              data-target="navbarMenuHeroA"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroA" className="navbar-menu">
+            <div className="navbar-end">
+              <a className="navbar-item is-active">Home</a>
+              <a className="navbar-item">Examples</a>
+              <a className="navbar-item">Documentation</a>
+              <span className="navbar-item">
+                <a className="button is-primary is-inverted">
+                  <span className="icon">
+                    <i className="fab fa-github"></i>
+                  </span>
+                  <span>Download</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
+
+    <div className="hero-body">
+      <div className="container">
+        <div className="columns">
+          <div className="column" />
+          <div className="column is-6">
+            <div className="box">
+              <h1 className="title has-text-black is-4">Login Form</h1>
+            </div>
+          </div>
+          <div className="column" />
+        </div>
+      </div>
+    </div>
+  </section>
 )
 
 export default IndexPage
