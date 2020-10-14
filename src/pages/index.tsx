@@ -41,19 +41,41 @@ const IndexPage: React.FC<{}> = () => (
     </div>
 
     <div className="hero-body">
-      <div className="container">
-        <div className="columns">
-          <div className="column" />
-          <div className="column is-6">
-            <div className="box">
-              <h1 className="title has-text-black is-4">Login Form</h1>
-            </div>
-          </div>
-          <div className="column" />
-        </div>
-      </div>
+      <LoginForm />
     </div>
   </section>
+)
+
+const LoginForm: React.FC<{}> = () => (
+  <div className="container">
+    <div className="columns">
+      <div className="column" />
+      <div className="column is-6">
+        <div className="box">
+          <p className="title has-text-black is-4">Login Form</p>
+          <form>
+            <div className="field">
+              <label className="label">Username</label>
+              <div className="control">
+                <input className="input is-success" type="text" placeholder="Text input" />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label">Password</label>
+              <div className="control">
+                <input className="input is-danger" type="password" placeholder="Text input" />
+              </div>
+              <p className="help is-danger">Password is mandatory!</p>
+            </div>
+            <div className="buttons is-right">
+              <button className="button is-primary">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="column" />
+    </div>
+  </div>
 )
 
 export default IndexPage
