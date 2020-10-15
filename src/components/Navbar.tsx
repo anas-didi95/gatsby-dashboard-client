@@ -4,8 +4,12 @@ import useMetadataQuery from "../utils/hooks/useMetadataQuery"
 import Button from "./Button"
 import ButtonGroup from "./ButtonGroup"
 
-const Navbar: React.FC<{}> = () => {
-  const metadata = useMetadataQuery()
+interface INavbar {
+  title: string
+  icon: FixedObject
+}
+
+const Navbar: React.FC<INavbar> = ({ title, icon }) => {
   const [isActive, setActive] = useState<boolean>(false)
 
   const handler = {
@@ -13,13 +17,17 @@ const Navbar: React.FC<{}> = () => {
   }
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar is-info"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div className="container">
         <NavbarBrand
           toggleActive={handler.toggleActive}
           isActive={isActive}
-          title={metadata.title}
-          icon={metadata.icon}
+          title={title}
+          icon={icon}
         />
         <NavbarMenu isActive={isActive} />
       </div>
@@ -36,7 +44,7 @@ const NavbarBrand: React.FC<{
   <div className="navbar-brand">
     <a href="/" className="navbar-item">
       <GatsbyImage fixed={icon} />
-      <p className="title ml-2 is-4">{title}</p>
+      <p className="title ml-2 is-4 has-text-white">{title}</p>
     </a>
     <span
       className={`navbar-burger burger ${!!isActive ? "is-active" : ""}`}
