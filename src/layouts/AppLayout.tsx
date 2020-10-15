@@ -24,7 +24,7 @@ const AppLayout: React.FC<IAppLayout> = ({ children, title }) => {
       <header>
         <Navbar title={metadata.title} icon={metadata.icon} />
       </header>
-      <main>{children}</main>
+      <main id="mainContent">{children}</main>
     </>
   )
 }
