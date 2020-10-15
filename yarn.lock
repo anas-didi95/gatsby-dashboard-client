@@ -7254,11 +7254,7 @@ gatsby-transformer-sharp@^2.5.15:
     semver "^7.3.2"
     sharp "^0.25.4"
 
-<<<<<<< HEAD
-gatsby@^2.24.63:
-=======
 gatsby@^2.24.77:
->>>>>>> Bump gatsby from 2.24.76 to 2.24.77
   version "2.24.77"
   resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.24.77.tgz#8282f80f2d9c6dc2e547ac86408807df3d2a0609"
   integrity sha512-OpthIJ3WdzZPbTLY7NSZq2XPt14l9EAVnB4R63a8SNBqeb14mY+Fs2yHAK8mBYSrmwAWN0ZEdGwWJQZGtB5Dhw==
