@@ -6,6 +6,7 @@ import ButtonGroup from "../components/ButtonGroup"
 import Form from "../components/Form"
 import FormInput from "../components/FormInput"
 import AppLayout from "../layouts/AppLayout"
+import useToast from "../utils/hooks/useToast"
 
 const IndexPage: React.FC<{}> = () => (
   <AppLayout title="Login">
@@ -23,10 +24,12 @@ const LoginForm: React.FC<{}> = () => {
     password: string
   }
   const { register, handleSubmit, errors } = useForm<Form>()
+  const toast = useToast()
 
   const handler = {
     onSubmit: (data: Form) => {
       console.log("data:", data)
+      toast("Form submitted", "is-success")
     },
   }
 
