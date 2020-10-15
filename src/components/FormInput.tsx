@@ -1,12 +1,12 @@
 import React from "react"
 
-interface IFormField {
+interface IFormInput {
   label: string
   type: "text" | "password"
   error: string | undefined
 }
 
-const FormField: React.FC<IFormField> = ({ label, type, error }) => (
+const FormInput: React.FC<IFormInput> = ({ label, type, error }) => (
   <div className="field">
     <label className="label">{label}</label>
     <div className="control">
@@ -19,4 +19,4 @@ const FormField: React.FC<IFormField> = ({ label, type, error }) => (
   </div>
 )
 
-export default FormField
+export default FormInput

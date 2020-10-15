@@ -3,7 +3,7 @@ import Box from "../components/Box"
 import Button from "../components/Button"
 import ButtonGroup from "../components/ButtonGroup"
 import Form from "../components/Form"
-import FormField from "../components/FormField"
+import FormInput from "../components/FormInput"
 import AppLayout from "../layouts/AppLayout"
 
 const IndexPage: React.FC<{}> = () => (
@@ -23,8 +23,8 @@ const LoginForm: React.FC<{}> = () => (
       <article className="column is-6">
         <Box>
           <Form title="Login Form">
-            <FormField label="Username" type="text" error="" />
-            <FormField label="Password" type="password" error="" />
+            <FormInput label="Username" type="text" error="" />
+            <FormInput label="Password" type="password" error="" />
             <ButtonGroup align="right">
               <Button type="submit" color="primary" label="Login" />
             </ButtonGroup>
