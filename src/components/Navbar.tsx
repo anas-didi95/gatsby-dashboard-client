@@ -68,8 +68,14 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => (
             label="Credits"
             isInverted
             isOutlined
+            onClick={() => console.warn("noop")}
           />
-          <Button type="button" color="primary" label="Log Out" />
+          <Button
+            type="button"
+            color="primary"
+            label="Log Out"
+            onClick={() => console.warn("noop")}
+          />
         </ButtonGroup>
       </div>
     </div>
