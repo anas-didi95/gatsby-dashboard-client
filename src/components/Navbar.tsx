@@ -13,7 +13,11 @@ const Navbar: React.FC<{}> = () => {
   }
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar is-info"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div className="container">
         <NavbarBrand
           toggleActive={handler.toggleActive}
@@ -36,7 +40,7 @@ const NavbarBrand: React.FC<{
   <div className="navbar-brand">
     <a href="/" className="navbar-item">
       <GatsbyImage fixed={icon} />
-      <p className="title ml-2 is-4">{title}</p>
+      <p className="title ml-2 is-4 has-text-white">{title}</p>
     </a>
     <span
       className={`navbar-burger burger ${!!isActive ? "is-active" : ""}`}

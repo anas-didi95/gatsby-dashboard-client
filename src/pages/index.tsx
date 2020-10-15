@@ -5,16 +5,16 @@ import ButtonGroup from "../components/ButtonGroup"
 import Form from "../components/Form"
 import FormField from "../components/FormField"
 import Navbar from "../components/Navbar"
+import AppLayout from "../layouts/AppLayout"
 
 const IndexPage: React.FC<{}> = () => (
-  <section className="hero is-info is-fullheight">
-    <div className="hero-head">
-      <Navbar />
-    </div>
-    <div className="hero-body">
-      <LoginForm />
-    </div>
-  </section>
+  <AppLayout>
+    <section className="hero is-info is-fullheight-with-navbar">
+      <div className="hero-body">
+        <LoginForm />
+      </div>
+    </section>
+  </AppLayout>
 )
 
 const LoginForm: React.FC<{}> = () => (
