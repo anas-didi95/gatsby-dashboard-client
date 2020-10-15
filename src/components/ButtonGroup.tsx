@@ -6,9 +6,7 @@ interface iButtonGroup {
 }
 
 const ButtonGroup: React.FC<iButtonGroup> = ({ children, align }) => (
-  <div className={`buttons ${!!align ? "is-" + align : ""}`}>
-    {children}
-  </div>
+  <div className={`buttons ${!!align ? "is-" + align : ""}`}>{children}</div>
 )
 
 export default ButtonGroup

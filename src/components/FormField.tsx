@@ -10,7 +10,10 @@ const FormField: React.FC<IFormField> = ({ label, type, error }) => (
   <div className="field">
     <label className="label">{label}</label>
     <div className="control">
-      <input className={`input ${!!error ? "is-danger" : "is-link"}`} type={type} />
+      <input
+        className={`input ${!!error ? "is-danger" : "is-link"}`}
+        type={type}
+      />
     </div>
     {!!error && <p className="help is-danger">{error}</p>}
   </div>
