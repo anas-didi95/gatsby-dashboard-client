@@ -1,0 +1,6 @@
+@baseUrl = {{$processEnv GATSBY_API_SECURITY}}
+
+### Health check
+GET {{baseUrl}}/ping
+Accept: application/json
+Content-Type: application/json
