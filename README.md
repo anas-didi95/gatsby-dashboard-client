@@ -14,7 +14,7 @@ Dashboard client application developed using Gatsby and TypeScript.
 ---
 
 ## Technologies
-* Gatsby - version 2.24.77
+* Gatsby - version 2.24.78
 * React - version 16.14.0
 * TypeScript - version 4.0.3
 
