@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useForm } from "react-hook-form"
 import Box from "../components/Box"
 import Button from "../components/Button"
@@ -6,6 +6,8 @@ import ButtonGroup from "../components/ButtonGroup"
 import Form from "../components/Form"
 import FormInput from "../components/FormInput"
 import AppLayout from "../layouts/AppLayout"
+import AuthContext from "../utils/contexts/AuthContext"
+import useAuth from "../utils/hooks/useAuth"
 import useToast from "../utils/hooks/useToast"
 
 const IndexPage: React.FC<{}> = () => (
@@ -25,26 +27,16 @@ const LoginForm: React.FC<{}> = () => {
   }
   const { register, handleSubmit, errors } = useForm<Form>()
   const toast = useToast()
+  const auth = useAuth()
+  const authContext = useContext(AuthContext)
 
   const handler = {
     onSubmit: async (data: Form) => {
-      console.log("data:", data)
-
-      const response = await fetch(
-        process.env.GATSBY_API_SECURITY + "/api/jwt/login" ?? "",
-        {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      )
-      const responseData = await response.json()
+      const responseData = await auth.login(data.username, data.password)
 
       if (responseData.status.isSuccess) {
         toast(responseData.status.message, "is-success")
+        authContext.setAccessToken(responseData.data.accessToken)
       } else {
         toast(responseData.status.message, "is-danger")
       }

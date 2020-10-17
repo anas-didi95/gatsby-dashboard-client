@@ -1,5 +1,6 @@
 import GatsbyImage, { FixedObject } from "gatsby-image"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
+import AuthContext from "../utils/contexts/AuthContext"
 import useMetadataQuery from "../utils/hooks/useMetadataQuery"
 import Button from "./Button"
 import ButtonGroup from "./ButtonGroup"
@@ -57,29 +58,35 @@ const NavbarBrand: React.FC<{
   </div>
 )
 
-const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => (
-  <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
-    <div className="navbar-end">
-      <div className="navbar-item">
-        <ButtonGroup align="right">
-          <Button
-            type="button"
-            color="info"
-            label="Credits"
-            isInverted
-            isOutlined
-            onClick={() => console.warn("noop")}
-          />
-          <Button
-            type="button"
-            color="primary"
-            label="Log Out"
-            onClick={() => console.warn("noop")}
-          />
-        </ButtonGroup>
+const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
+  const authContext = useContext(AuthContext)
+
+  return (
+    <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
+      <div className="navbar-end">
+        <div className="navbar-item">
+          <ButtonGroup align="right">
+            <Button
+              type="button"
+              color="info"
+              label="Credits"
+              isInverted
+              isOutlined
+              onClick={() => console.warn("noop")}
+            />
+            {authContext.isAuth() && (
+              <Button
+                type="button"
+                color="primary"
+                label="Log Out"
+                onClick={() => console.warn("noop")}
+              />
+            )}
+          </ButtonGroup>
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default Navbar
