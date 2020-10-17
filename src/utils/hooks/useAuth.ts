@@ -17,8 +17,26 @@ const useAuth = () => {
           password,
         }),
       })
-      const responseData = await response.json()
-      return responseData
+      const responseBody = await response.json()
+
+      if (responseBody.status.isSuccess) {
+        return {
+          status: {
+            isSuccess: responseBody.status.isSuccess,
+            message: responseBody.status.message,
+          },
+          data: {
+            accessToken: responseBody.data.accessToken,
+          },
+        }
+      } else {
+        return {
+          status: {
+            isSuccess: responseBody.status.isSuccess,
+            message: responseBody.status.message,
+          },
+        }
+      }
     } catch (e) {
       console.log(e)
     }

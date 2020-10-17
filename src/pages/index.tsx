@@ -32,13 +32,13 @@ const LoginForm: React.FC<{}> = () => {
 
   const handler = {
     onSubmit: async (data: Form) => {
-      const responseData = await auth.login(data.username, data.password)
+      const responseBody = await auth.login(data.username, data.password)
 
-      if (responseData.status.isSuccess) {
-        toast(responseData.status.message, "is-success")
-        authContext.setAccessToken(responseData.data.accessToken)
+      if (responseBody?.status.isSuccess) {
+        toast(responseBody.status.message, "is-success")
+        authContext.setAccessToken(responseBody.data?.accessToken)
       } else {
-        toast(responseData.status.message, "is-danger")
+        toast(responseBody?.status.message, "is-danger")
       }
     },
   }
