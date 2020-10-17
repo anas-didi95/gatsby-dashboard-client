@@ -27,9 +27,27 @@ const LoginForm: React.FC<{}> = () => {
   const toast = useToast()
 
   const handler = {
-    onSubmit: (data: Form) => {
+    onSubmit: async (data: Form) => {
       console.log("data:", data)
-      toast("Form submitted", "is-success")
+
+      const response = await fetch(
+        process.env.GATSBY_API_SECURITY + "/api/jwt/login" ?? "",
+        {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      )
+      const responseData = await response.json()
+
+      if (responseData.status.isSuccess) {
+        toast(responseData.status.message, "is-success")
+      } else {
+        toast(responseData.status.message, "is-danger")
+      }
     },
   }
 
