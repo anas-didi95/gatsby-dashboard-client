@@ -76,7 +76,10 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
               label="Credits"
               isInverted
               isOutlined
-              onClick={() => console.warn("noop")}
+              onClick={() => {
+                console.warn("noop")
+                navigate("/dashboard/error404")
+              }}
             />
             {authContext.isAuth() && (
               <Button
