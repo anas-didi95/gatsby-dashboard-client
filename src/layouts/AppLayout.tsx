@@ -2,7 +2,10 @@ import { navigate } from "gatsby"
 import React, { ReactNode, useContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import SEO from "../components/SEO"
-import AlertContext from "../utils/contexts/AlertContext"
+import AlertContext, {
+  TAlertType,
+  TAlert,
+} from "../utils/contexts/AlertContext"
 import AuthContext from "../utils/contexts/AuthContext"
 import useSiteMetadata from "../utils/hooks/useMetadataQuery"
 
@@ -10,9 +13,22 @@ interface IAppLayout {
   children: ReactNode
   title: string
   needAuth?: boolean
+  location: {
+    state: {
+      alert?: {
+        message: string
+        type: TAlertType
+      }
+    }
+  }
 }
 
-const AppLayout: React.FC<IAppLayout> = ({ children, title, needAuth }) => {
+const AppLayout: React.FC<IAppLayout> = ({
+  children,
+  title,
+  needAuth,
+  location,
+}) => {
   const metadata = useSiteMetadata()
   const [isShow, setShow] = useState<boolean>(false)
   const authContext = useContext(AuthContext)
@@ -20,13 +36,22 @@ const AppLayout: React.FC<IAppLayout> = ({ children, title, needAuth }) => {
 
   useEffect(() => {
     if (needAuth && !authContext.isAuth()) {
-      alertContext.setAlert(
-        "Unauthorized! Please login to continue.",
-        "is-danger"
-      )
-      navigate("/")
+      const alert: TAlert = {
+        message: "Unauthorized! Please login to continue.",
+        type: "is-danger",
+      }
+      navigate("/", { state: { alert } })
     } else {
       setShow(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!!location.state?.alert) {
+      const { alert } = location.state
+      if (!!alert) {
+        alertContext.setAlert(alert.message, alert.type)
+      }
     }
 
     return () => {

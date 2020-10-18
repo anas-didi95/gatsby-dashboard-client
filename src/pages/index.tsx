@@ -12,8 +12,8 @@ import AlertContext from "../utils/contexts/AlertContext"
 import AuthContext from "../utils/contexts/AuthContext"
 import useAuth from "../utils/hooks/useAuth"
 
-const IndexPage: React.FC<{}> = () => (
-  <AppLayout title="Login">
+const IndexPage: React.FC<{ location: any }> = ({ location }) => (
+  <AppLayout title="Login" location={location}>
     <section className="hero is-info is-fullheight-with-navbar">
       <div className="hero-body">
         <LoginForm />

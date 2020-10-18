@@ -24,8 +24,12 @@ const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     type: undefined,
   })
 
-  const setAlert = (message: string, type: TAlertType) =>
+  const setAlert = (message: string, type: TAlertType) => {
+    console.log("setAlert started")
+    console.log(message)
+    console.log(type)
     setData({ message, type })
+  }
   const getAlert = () => data
   const hasAlert = () => !!data.message && !!data.type
   const clearAlert = () => setData({ message: "", type: undefined })
@@ -38,4 +42,4 @@ const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 }
 
 export default AlertContext
-export { AlertProvider }
+export { AlertProvider, TAlertType, TAlert }
