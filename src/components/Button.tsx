@@ -19,15 +19,16 @@ const Button: React.FC<IButton> = ({
   onClick,
   isLoading,
 }) => (
-    <button
-      onClick={onClick}
-      type={type}
-      className={`button ${!!color ? "is-" + color : ""} ${!!isInverted ? "is-inverted" : ""
-        } ${!!isOutlined ? "is-outlined" : ""} ${isLoading ? "is-loading" : ""}`}
-      disabled={isLoading}
-    >
-      {label}
-    </button>
-  )
+  <button
+    onClick={onClick}
+    type={type}
+    className={`button ${!!color ? "is-" + color : ""} ${
+      !!isInverted ? "is-inverted" : ""
+    } ${!!isOutlined ? "is-outlined" : ""} ${isLoading ? "is-loading" : ""}`}
+    disabled={isLoading}
+  >
+    {label}
+  </button>
+)
 
 export default Button

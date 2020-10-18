@@ -2642,6 +2642,23 @@ export type PagesQueryQuery = (
   ) }
 );
 
+export type Error404PageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Error404PageQuery = (
+  { __typename?: 'Query' }
+  & { icon?: Maybe<(
+    { __typename?: 'File' }
+    & { childImageSharp?: Maybe<(
+      { __typename?: 'ImageSharp' }
+      & { fixed?: Maybe<(
+        { __typename?: 'ImageSharpFixed' }
+        & GatsbyImageSharpFixedFragment
+      )> }
+    )> }
+  )> }
+);
+
 export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
