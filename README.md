@@ -1,5 +1,6 @@
 # Gatsby Dashboard Client
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d25f33cd-6ed6-4c1d-a08e-a34c3ec80143/deploy-status)](https://app.netlify.com/sites/anasdidi-dashboard/deploys)
 Dashboard client application developed using Gatsby and TypeScript.
 
 ---
@@ -67,6 +68,7 @@ npm run start
 ## Credits
 * Gatsby starter [gatsby-starter-default-typescript](https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript/) by andykenward.
 * Icons made by <a href="https://www.flaticon.com/authors/prosymbols" title="Prosymbols">Prosymbols</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 ---
 
