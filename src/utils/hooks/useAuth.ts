@@ -19,23 +19,14 @@ const useAuth = () => {
       })
       const responseBody = await response.json()
 
-      if (responseBody.status.isSuccess) {
-        return {
-          status: {
-            isSuccess: responseBody.status.isSuccess,
-            message: responseBody.status.message,
-          },
-          data: {
-            accessToken: responseBody.data.accessToken,
-          },
-        }
-      } else {
-        return {
-          status: {
-            isSuccess: responseBody.status.isSuccess,
-            message: responseBody.status.message,
-          },
-        }
+      return {
+        status: {
+          isSuccess: responseBody.status.isSuccess ?? false,
+          message: responseBody.status.message ?? "",
+        },
+        data: {
+          accessToken: responseBody.data.accessToken ?? "",
+        },
       }
     } catch (e) {
       console.log(e)

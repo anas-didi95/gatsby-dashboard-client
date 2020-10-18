@@ -1,4 +1,4 @@
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import GatsbyImage, { FixedObject } from "gatsby-image"
 import React, { useContext, useState } from "react"
 import AuthContext from "../utils/contexts/AuthContext"
@@ -60,6 +60,11 @@ const NavbarBrand: React.FC<{
 const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
   const authContext = useContext(AuthContext)
 
+  const logOut = () => {
+    authContext.logOut()
+    navigate("/")
+  }
+
   return (
     <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
       <div className="navbar-end">
@@ -78,7 +83,7 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
                 type="button"
                 color="primary"
                 label="Log Out"
-                onClick={() => console.warn("noop")}
+                onClick={logOut}
               />
             )}
           </ButtonGroup>
