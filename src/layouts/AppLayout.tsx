@@ -1,17 +1,33 @@
-import React, { ReactNode } from "react"
+import { navigate } from "gatsby"
+import React, { ReactNode, useContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import SEO from "../components/SEO"
+import AuthContext from "../utils/contexts/AuthContext"
 import useSiteMetadata from "../utils/hooks/useMetadataQuery"
+import useToast from "../utils/hooks/useToast"
 
 interface IAppLayout {
   children: ReactNode
   title: string
+  needAuth?: boolean
 }
 
-const AppLayout: React.FC<IAppLayout> = ({ children, title }) => {
+const AppLayout: React.FC<IAppLayout> = ({ children, title, needAuth }) => {
   const metadata = useSiteMetadata()
+  const [isShow, setShow] = useState<boolean>(false)
+  const authContext = useContext(AuthContext)
+  const toast = useToast()
 
-  return (
+  useEffect(() => {
+    if (needAuth && !authContext.isAuth()) {
+      toast("Unauthorized! Please login to continue.", "is-danger")
+      navigate("/")
+    } else {
+      setShow(true)
+    }
+  }, [])
+
+  return isShow ? (
     <>
       <SEO
         title={title}
@@ -26,7 +42,7 @@ const AppLayout: React.FC<IAppLayout> = ({ children, title }) => {
       </header>
       <main id="mainContent">{children}</main>
     </>
-  )
+  ) : null
 }
 
 export default AppLayout

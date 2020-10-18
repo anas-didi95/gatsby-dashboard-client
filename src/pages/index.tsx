@@ -1,3 +1,4 @@
+import { navigate } from "gatsby"
 import React, { useContext } from "react"
 import { useForm } from "react-hook-form"
 import Box from "../components/Box"
@@ -37,6 +38,7 @@ const LoginForm: React.FC<{}> = () => {
       if (responseBody?.status.isSuccess) {
         toast(responseBody.status.message, "is-success")
         authContext.setAccessToken(responseBody.data?.accessToken)
+        navigate("/dashboard")
       } else {
         toast(responseBody?.status.message, "is-danger")
       }
