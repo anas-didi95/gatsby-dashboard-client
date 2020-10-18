@@ -1,10 +1,20 @@
-import React from "react"
+import React, { useContext } from "react"
+import AlertContext from "../utils/contexts/AlertContext"
 
-const Alert: React.FC<{}> = () => (
-  <div className="notification is-danger">
-    <p className="has-text-weight-semibold">Message here</p>
-  </div>
+const Alert: React.FC<{}> = () => {
+  const alertContext = useContext(AlertContext)
 
-)
+  return (
+    <>
+      {alertContext.hasAlert() && (
+        <div className={`notification ${alertContext.getAlert().type}`}>
+          <p className="has-text-weight-semibold">
+            {alertContext.getAlert().message}
+          </p>
+        </div>
+      )}
+    </>
+  )
+}
 
 export default Alert

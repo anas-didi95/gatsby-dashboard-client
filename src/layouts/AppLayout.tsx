@@ -2,9 +2,9 @@ import { navigate } from "gatsby"
 import React, { ReactNode, useContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import SEO from "../components/SEO"
+import AlertContext from "../utils/contexts/AlertContext"
 import AuthContext from "../utils/contexts/AuthContext"
 import useSiteMetadata from "../utils/hooks/useMetadataQuery"
-import useToast from "../utils/hooks/useToast"
 
 interface IAppLayout {
   children: ReactNode
@@ -16,14 +16,21 @@ const AppLayout: React.FC<IAppLayout> = ({ children, title, needAuth }) => {
   const metadata = useSiteMetadata()
   const [isShow, setShow] = useState<boolean>(false)
   const authContext = useContext(AuthContext)
-  const toast = useToast()
+  const alertContext = useContext(AlertContext)
 
   useEffect(() => {
     if (needAuth && !authContext.isAuth()) {
-      toast("Unauthorized! Please login to continue.", "is-danger")
+      alertContext.setAlert(
+        "Unauthorized! Please login to continue.",
+        "is-danger"
+      )
       navigate("/")
     } else {
       setShow(true)
+    }
+
+    return () => {
+      alertContext.clearAlert()
     }
   }, [])
 

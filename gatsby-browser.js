@@ -8,10 +8,13 @@
 
 import React from "react"
 import { AuthProvider } from "./src/utils/contexts/AuthContext"
+import { AlertProvider } from "./src/utils/contexts/AlertContext"
 import "./src/styles/app.scss"
 
 export const wrapRootElement = ({ element }) => (
   <AuthProvider>
-    {element}
+    <AlertProvider>
+      {element}
+    </AlertProvider>
   </AuthProvider>
 )

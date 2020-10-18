@@ -8,9 +8,9 @@ import ButtonGroup from "../components/ButtonGroup"
 import Form from "../components/Form"
 import FormInput from "../components/FormInput"
 import AppLayout from "../layouts/AppLayout"
+import AlertContext from "../utils/contexts/AlertContext"
 import AuthContext from "../utils/contexts/AuthContext"
 import useAuth from "../utils/hooks/useAuth"
-import useToast from "../utils/hooks/useToast"
 
 const IndexPage: React.FC<{}> = () => (
   <AppLayout title="Login">
@@ -28,19 +28,18 @@ const LoginForm: React.FC<{}> = () => {
     password: string
   }
   const { register, handleSubmit, errors } = useForm<Form>()
-  const toast = useToast()
   const auth = useAuth()
   const authContext = useContext(AuthContext)
+  const alertContext = useContext(AlertContext)
 
   const onSubmit = async (data: Form) => {
     const responseBody = await auth.login(data.username, data.password)
 
     if (responseBody.status.isSuccess) {
-      toast(responseBody.status.message, "is-success")
       authContext.setAccessToken(responseBody.data.accessToken)
       navigate("/dashboard")
     } else {
-      toast(responseBody.status.message, "is-danger")
+      alertContext.setAlert(responseBody.status.message, "is-danger")
     }
   }
 
