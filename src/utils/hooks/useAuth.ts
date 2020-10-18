@@ -35,7 +35,7 @@ const useAuth = () => {
       return {
         status: {
           isSuccess: false,
-          message: "ERROR! Login failed. Kindly refer console log for info.",
+          message: "ERROR! Login failed. Please refer console log for info.",
         },
         data: {
           accessToken: "",
