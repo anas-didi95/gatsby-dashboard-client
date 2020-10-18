@@ -4,7 +4,18 @@ const useAuth = () => {
     console.error("[useAuth] GATSBY_API_SECURITY is undefined!")
   }
 
-  const login = async (username: string, password: string) => {
+  const login = async (
+    username: string,
+    password: string
+  ): Promise<{
+    status: {
+      isSuccess: boolean
+      message: string
+    }
+    data: {
+      accessToken: string
+    }
+  }> => {
     try {
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
@@ -18,18 +29,18 @@ const useAuth = () => {
         }),
       })
       const responseBody = await response.json()
-
+      return responseBody
+    } catch (e) {
+      console.error(e)
       return {
         status: {
-          isSuccess: responseBody.status.isSuccess ?? false,
-          message: responseBody.status.message ?? "",
+          isSuccess: false,
+          message: "ERROR! Login failed. Kindly refer console log for info.",
         },
         data: {
-          accessToken: responseBody.data.accessToken ?? "",
+          accessToken: "",
         },
       }
-    } catch (e) {
-      console.log(e)
     }
   }
 

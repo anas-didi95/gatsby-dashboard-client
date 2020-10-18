@@ -31,18 +31,16 @@ const LoginForm: React.FC<{}> = () => {
   const auth = useAuth()
   const authContext = useContext(AuthContext)
 
-  const handler = {
-    onSubmit: async (data: Form) => {
-      const responseBody = await auth.login(data.username, data.password)
+  const onSubmit = async (data: Form) => {
+    const responseBody = await auth.login(data.username, data.password)
 
-      if (responseBody?.status.isSuccess) {
-        toast(responseBody.status.message, "is-success")
-        authContext.setAccessToken(responseBody.data?.accessToken)
-        navigate("/dashboard")
-      } else {
-        toast(responseBody?.status.message, "is-danger")
-      }
-    },
+    if (responseBody.status.isSuccess) {
+      toast(responseBody.status.message, "is-success")
+      authContext.setAccessToken(responseBody.data.accessToken)
+      navigate("/dashboard")
+    } else {
+      toast(responseBody.status.message, "is-danger")
+    }
   }
 
   return (
@@ -51,7 +49,7 @@ const LoginForm: React.FC<{}> = () => {
         <div className="column" />
         <article className="column is-6">
           <Box>
-            <Form title="Login Form" onSubmit={handleSubmit(handler.onSubmit)}>
+            <Form title="Login Form" onSubmit={handleSubmit(onSubmit)}>
               <FormInput
                 name="username"
                 label="Username"
@@ -71,7 +69,7 @@ const LoginForm: React.FC<{}> = () => {
                   type="submit"
                   color="primary"
                   label="Login"
-                  onClick={handleSubmit(handler.onSubmit)}
+                  onClick={handleSubmit(onSubmit)}
                 />
               </ButtonGroup>
             </Form>
