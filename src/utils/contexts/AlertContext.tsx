@@ -12,10 +12,10 @@ interface IAlertContext {
   clearAlert: () => void
 }
 const AlertContext = createContext<IAlertContext>({
-  setAlert: (a, b) => {},
+  setAlert: (a, b) => { },
   getAlert: () => ({ message: "", type: undefined }),
   hasAlert: () => false,
-  clearAlert: () => {},
+  clearAlert: () => { },
 })
 
 const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -24,12 +24,7 @@ const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     type: undefined,
   })
 
-  const setAlert = (message: string, type: TAlertType) => {
-    console.log("setAlert started")
-    console.log(message)
-    console.log(type)
-    setData({ message, type })
-  }
+  const setAlert = (message: string, type: TAlertType) => setData({ message, type })
   const getAlert = () => data
   const hasAlert = () => !!data.message && !!data.type
   const clearAlert = () => setData({ message: "", type: undefined })
