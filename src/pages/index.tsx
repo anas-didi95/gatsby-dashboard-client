@@ -1,5 +1,5 @@
 import { navigate } from "gatsby"
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import Alert from "../components/Alert"
 import Box from "../components/Box"
@@ -31,8 +31,14 @@ const LoginForm: React.FC<{}> = () => {
   const auth = useAuth()
   const authContext = useContext(AuthContext)
   const alertContext = useContext(AlertContext)
+  const [hasSubmit, setHasSubmit] = useState<boolean>(false)
 
   const onSubmit = async (data: Form) => {
+    if (hasSubmit) {
+      return
+    }
+    setHasSubmit(true)
+    alertContext.clearAlert()
     const responseBody = await auth.login(data.username, data.password)
 
     if (responseBody.status.isSuccess) {
@@ -40,6 +46,7 @@ const LoginForm: React.FC<{}> = () => {
       navigate("/dashboard")
     } else {
       alertContext.setAlert(responseBody.status.message, "is-danger")
+      setHasSubmit(false)
     }
   }
 
@@ -71,6 +78,7 @@ const LoginForm: React.FC<{}> = () => {
                   color="primary"
                   label="Login"
                   onClick={handleSubmit(onSubmit)}
+                  isLoading={hasSubmit}
                 />
               </ButtonGroup>
             </Form>

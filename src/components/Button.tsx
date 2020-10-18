@@ -7,6 +7,7 @@ interface IButton {
   isInverted?: boolean
   isOutlined?: boolean
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  isLoading: boolean
 }
 
 const Button: React.FC<IButton> = ({
@@ -16,13 +17,15 @@ const Button: React.FC<IButton> = ({
   isInverted,
   isOutlined,
   onClick,
+  isLoading,
 }) => (
   <button
     onClick={onClick}
     type={type}
     className={`button ${!!color ? "is-" + color : ""} ${
       !!isInverted ? "is-inverted" : ""
-    } ${!!isOutlined ? "is-outlined" : ""}`}
+    } ${!!isOutlined ? "is-outlined" : ""} ${isLoading ? "is-loading" : ""}`}
+    disabled={isLoading}
   >
     {label}
   </button>
