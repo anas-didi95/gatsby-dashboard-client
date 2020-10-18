@@ -1,0 +1,45 @@
+@baseUrl = {{$processEnv GATSBY_API_SECURITY}}/api/user
+@accessToken =
+
+// @name createContent
+POST {{baseUrl}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "username": "superadmin",
+  "password": "password",
+  "fullName": "superadmin",
+  "email": "anas.didi95@gmail.com"
+}
+
+###
+
+@userId = {{createContent.response.body.$.data.id}}
+
+// @name updateContent
+PUT {{baseUrl}}/{{userId}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "username": "superadmin1",
+  "password": "password",
+  "fullName": "anas juwaidi",
+  "email": "anas.didi95@gmail.com1",
+  "version": 0
+}
+
+###
+
+// @name deleteContent
+DELETE {{baseUrl}}/{{userId}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "version": 1
+}

@@ -5,6 +5,8 @@ services:
     build:
       context: .devcontainer
       dockerfile: Dockerfile
+    environment:
+      GATSBY_API_SECURITY: ${GATSBY_API_SECURITY?:GATSBY_API_SECURITY}
     command: sleep infinity
     volumes:
       - ./:/workspace
