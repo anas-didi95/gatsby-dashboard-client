@@ -1,6 +1,7 @@
 import { navigate } from "gatsby"
 import React, { useContext } from "react"
 import { useForm } from "react-hook-form"
+import Alert from "../components/Alert"
 import Box from "../components/Box"
 import Button from "../components/Button"
 import ButtonGroup from "../components/ButtonGroup"
@@ -50,6 +51,7 @@ const LoginForm: React.FC<{}> = () => {
         <article className="column is-6">
           <Box>
             <Form title="Login Form" onSubmit={handleSubmit(onSubmit)}>
+              <Alert />
               <FormInput
                 name="username"
                 label="Username"
