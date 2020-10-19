@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Box from "../../../components/Box"
+import Breadcrumb from "../../../components/Breadcrumb"
 import FormInput from "../../../components/FormInput"
 import AppLayout from "../../../layouts/AppLayout"
 
@@ -10,20 +11,7 @@ const StatusPage: React.FC<{ location: any }> = ({ location }) => (
         <div className="columns">
           <div className="column" />
           <div className="column is-10">
-            <nav className="breadcrumb is-medium" aria-label="breadcrumbs">
-              <ul>
-                <li>
-                  <a href="#" className="has-text-black">
-                    Dashboard
-                  </a>
-                </li>
-                <li className="is-active">
-                  <a href="#" className="has-text-black has-text-weight-bold">
-                    Status
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <Breadcrumb paths={["Status"]} />
             <br />
             <div className="columns is-multiline">
               <div className="column is-6">
