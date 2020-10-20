@@ -3,6 +3,11 @@ module.exports = {
     title: `Dashboard`,
     description: `Dashboard client application developed using Gatsby and TypeScript.`,
     author: `Anas Juwaidi <anas.didi95@gmail.com>`,
+    social: {
+      website: "https://anasdidi.dev/",
+      github: "https://github.com/anas-didi95/gatsby-dashboard-client",
+      linkedin: "https://www.linkedin.com/in/anas-juwaidi-mohd-jeffry"
+    }
   },
   plugins: [
     `gatsby-plugin-sass`,

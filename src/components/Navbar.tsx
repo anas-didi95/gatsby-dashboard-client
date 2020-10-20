@@ -6,6 +6,7 @@ import Button from "./Button"
 import ButtonGroup from "./ButtonGroup"
 import Modal from "./Modal"
 import { GrGithub, GrLinkedin, GrPersonalComputer } from "react-icons/gr"
+import useMetadataQuery from "../utils/hooks/useMetadataQuery"
 
 interface INavbar {
   title: string
@@ -111,64 +112,68 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
 const CreditModal: React.FC<{
   isActive: boolean
   toggleActive: () => void
-}> = ({ isActive, toggleActive }) => (
-  <Modal title="Credit" isActive={isActive} toggleActive={toggleActive}>
-    <div className="content">
-      <h3>Resources</h3>
-      <ul>
-        <li>
-          Gatsby starter{" "}
-          <a href="https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript">
-            gatsby-starter-default-typescript
-          </a>{" "}
-          by andykenward.
-        </li>
-        <li>
-          Icons made by{" "}
-          <a
-            href="https://www.flaticon.com/authors/prosymbols"
-            title="Prosymbols"
-          >
-            Prosymbols
-          </a>{" "}
-          from{" "}
-          <a href="https://www.flaticon.com/" title="Flaticon">
-            {" "}
-            www.flaticon.com
+}> = ({ isActive, toggleActive }) => {
+  const metadata = useMetadataQuery()
+
+  return (
+    <Modal title="Credit" isActive={isActive} toggleActive={toggleActive}>
+      <div className="content">
+        <h3>Resources</h3>
+        <ul>
+          <li>
+            Gatsby starter{" "}
+            <a href="https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript">
+              gatsby-starter-default-typescript
+            </a>{" "}
+            by andykenward.
+          </li>
+          <li>
+            Icons made by{" "}
+            <a
+              href="https://www.flaticon.com/authors/prosymbols"
+              title="Prosymbols"
+            >
+              Prosymbols
+            </a>{" "}
+            from{" "}
+            <a href="https://www.flaticon.com/" title="Flaticon">
+              {" "}
+              www.flaticon.com
+            </a>
+          </li>
+          <li>
+            Icons made by{" "}
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+              Freepik
+            </a>{" "}
+            from{" "}
+            <a href="https://www.flaticon.com/" title="Flaticon">
+              {" "}
+              www.flaticon.com
+            </a>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div className="columns is-centered has-text-centered is-mobile">
+        <div className="column is-size-3">
+          <a href={metadata.social.website} className="has-text-black">
+            <GrPersonalComputer />
           </a>
-        </li>
-        <li>
-          Icons made by{" "}
-          <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-            Freepik
-          </a>{" "}
-          from{" "}
-          <a href="https://www.flaticon.com/" title="Flaticon">
-            {" "}
-            www.flaticon.com
+        </div>
+        <div className="column is-size-3">
+          <a href={metadata.social.github} className="has-text-black">
+            <GrGithub />
           </a>
-        </li>
-      </ul>
-    </div>
-    <hr />
-    <div className="columns is-centered has-text-centered is-mobile">
-      <div className="column is-size-3">
-        <a href="" className="has-text-black">
-          <GrPersonalComputer />
-        </a>
+        </div>
+        <div className="column is-size-3">
+          <a href={metadata.social.linkedin} className="has-text-black">
+            <GrLinkedin />
+          </a>
+        </div>
       </div>
-      <div className="column is-size-3">
-        <a href="" className="has-text-black">
-          <GrGithub />
-        </a>
-      </div>
-      <div className="column is-size-3">
-        <a href="" className="has-text-black">
-          <GrLinkedin />
-        </a>
-      </div>
-    </div>
-  </Modal>
-)
+    </Modal>
+  )
+}
 
 export default Navbar
