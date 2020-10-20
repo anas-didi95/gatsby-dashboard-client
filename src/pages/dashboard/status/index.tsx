@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Box from "../../../components/Box"
 import Breadcrumb from "../../../components/Breadcrumb"
+import LabelValue from "../../../components/LabelValue"
 import AppLayout from "../../../layouts/AppLayout"
 
 const StatusPage: React.FC<{ location: any }> = ({ location }) => {
@@ -64,34 +65,24 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
       <Box>
         <div className="columns">
           <div className="column is-8">
-            <div className="field">
-              <label className="label">URL</label>
-              <div className="control">
-                <p>{url}</p>
-              </div>
-            </div>
+            <LabelValue label="URL">{url}</LabelValue>
           </div>
           <div className="column is-4">
-            <div className="field">
-              <label className="label">Status</label>
-              <div className="control">
-                <p>
-                  {outcome === "UP" ? (
-                    <span className="tag is-success is-rounded has-text-weight-semibold">
-                      Online
-                    </span>
-                  ) : outcome === "DOWN" ? (
-                    <span className="tag is-danger is-rounded has-text-weight-semibold">
-                      Offline
-                    </span>
-                  ) : (
-                    <span className="tag is-warning is-rounded has-text-weight-semibold">
-                      Checking
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
+            <LabelValue label="Status">
+              {outcome === "UP" ? (
+                <span className="tag is-success is-rounded has-text-weight-semibold">
+                  Online
+                </span>
+              ) : outcome === "DOWN" ? (
+                <span className="tag is-danger is-rounded has-text-weight-semibold">
+                  Offline
+                </span>
+              ) : (
+                <span className="tag is-warning is-rounded has-text-weight-semibold">
+                  Checking
+                </span>
+              )}
+            </LabelValue>
           </div>
         </div>
       </Box>
