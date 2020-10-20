@@ -1797,6 +1797,9 @@ export enum SiteFieldsEnum {
   siteMetadata___title = 'siteMetadata___title',
   siteMetadata___description = 'siteMetadata___description',
   siteMetadata___author = 'siteMetadata___author',
+  siteMetadata___social___website = 'siteMetadata___social___website',
+  siteMetadata___social___github = 'siteMetadata___social___github',
+  siteMetadata___social___linkedin = 'siteMetadata___social___linkedin',
   port = 'port',
   host = 'host',
   polyfill = 'polyfill',
@@ -2476,12 +2479,27 @@ export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   author?: Maybe<Scalars['String']>;
+  social?: Maybe<SiteSiteMetadataSocial>;
 };
 
 export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   author?: Maybe<StringQueryOperatorInput>;
+  social?: Maybe<SiteSiteMetadataSocialFilterInput>;
+};
+
+export type SiteSiteMetadataSocial = {
+  __typename?: 'SiteSiteMetadataSocial';
+  website?: Maybe<Scalars['String']>;
+  github?: Maybe<Scalars['String']>;
+  linkedin?: Maybe<Scalars['String']>;
+};
+
+export type SiteSiteMetadataSocialFilterInput = {
+  website?: Maybe<StringQueryOperatorInput>;
+  github?: Maybe<StringQueryOperatorInput>;
+  linkedin?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteSortInput = {
@@ -2669,6 +2687,10 @@ export type MetadataQuery = (
     & { siteMetadata?: Maybe<(
       { __typename?: 'SiteSiteMetadata' }
       & Pick<SiteSiteMetadata, 'title' | 'description'>
+      & { social?: Maybe<(
+        { __typename?: 'SiteSiteMetadataSocial' }
+        & Pick<SiteSiteMetadataSocial, 'website' | 'github' | 'linkedin'>
+      )> }
     )> }
   )>, icon?: Maybe<(
     { __typename?: 'File' }

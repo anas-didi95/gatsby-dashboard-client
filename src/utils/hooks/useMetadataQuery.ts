@@ -6,8 +6,12 @@ interface IMetadataQuery {
   title: string
   description: string
   icon: FixedObject
+  social: {
+    website: string
+    github: string
+    linkedin: string
+  }
 }
-
 const useMetadataQuery = (): IMetadataQuery => {
   const data: MetadataQuery = useStaticQuery(graphql`
     query Metadata {
@@ -15,6 +19,11 @@ const useMetadataQuery = (): IMetadataQuery => {
         siteMetadata {
           title
           description
+          social {
+            website
+            github
+            linkedin
+          }
         }
       }
       icon: file(relativePath: { eq: "dashboard.png" }) {
@@ -32,6 +41,11 @@ const useMetadataQuery = (): IMetadataQuery => {
     title: data.site?.siteMetadata?.title ?? "",
     description: data.site?.siteMetadata?.description ?? "",
     icon: data.icon?.childImageSharp?.fixed as FixedObject,
+    social: {
+      website: data.site?.siteMetadata?.social?.website ?? "",
+      github: data.site?.siteMetadata?.social?.github ?? "",
+      linkedin: data.site?.siteMetadata?.social?.linkedin ?? "",
+    },
   }
 }
 
