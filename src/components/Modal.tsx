@@ -14,7 +14,7 @@ const Modal: React.FC<IModal> = ({
 }) => (
   <div className={`modal ${isActive ? "is-active" : ""}`}>
     <div className="modal-background" />
-    <div className="modal-card">
+    <div className="modal-card px-2">
       <header className="modal-card-head">
         <p className="modal-card-title">{title}</p>
         <button

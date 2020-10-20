@@ -5,6 +5,7 @@ import AuthContext from "../utils/contexts/AuthContext"
 import Button from "./Button"
 import ButtonGroup from "./ButtonGroup"
 import Modal from "./Modal"
+import { GrGithub, GrLinkedin, GrPersonalComputer } from "react-icons/gr"
 
 interface INavbar {
   title: string
@@ -114,7 +115,7 @@ const CreditModal: React.FC<{
   <Modal title="Credit" isActive={isActive} toggleActive={toggleActive}>
     <div className="content">
       <h3>Resources</h3>
-      <ul className="mb-5">
+      <ul>
         <li>
           Gatsby starter{" "}
           <a href="https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript">
@@ -148,6 +149,24 @@ const CreditModal: React.FC<{
           </a>
         </li>
       </ul>
+    </div>
+    <hr />
+    <div className="columns is-centered has-text-centered is-mobile">
+      <div className="column is-size-3">
+        <a href="" className="has-text-black">
+          <GrPersonalComputer />
+        </a>
+      </div>
+      <div className="column is-size-3">
+        <a href="" className="has-text-black">
+          <GrGithub />
+        </a>
+      </div>
+      <div className="column is-size-3">
+        <a href="" className="has-text-black">
+          <GrLinkedin />
+        </a>
+      </div>
     </div>
   </Modal>
 )
