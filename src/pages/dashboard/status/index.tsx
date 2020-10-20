@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import Box from "../../../components/Box"
 import Breadcrumb from "../../../components/Breadcrumb"
 import LabelValue from "../../../components/LabelValue"
+import Panel from "../../../components/Panel"
 import Tag from "../../../components/Tag"
 import AppLayout from "../../../layouts/AppLayout"
 
@@ -61,8 +62,7 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
   }, [])
 
   return (
-    <div className="panel is-link">
-      <p className="panel-heading">{title}</p>
+    <Panel title={title} color="is-link">
       <Box>
         <div className="columns">
           <div className="column is-8">
@@ -81,7 +81,7 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
           </div>
         </div>
       </Box>
-    </div>
+    </Panel>
   )
 }
 
