@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import Box from "../../../components/Box"
 import Breadcrumb from "../../../components/Breadcrumb"
 import LabelValue from "../../../components/LabelValue"
+import Tag from "../../../components/Tag"
 import AppLayout from "../../../layouts/AppLayout"
 
 const StatusPage: React.FC<{ location: any }> = ({ location }) => {
@@ -47,7 +48,7 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
   const [outcome, setOutcome] = useState<string>("")
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         const response = await fetch(`${url}/ping`)
         const responseBody = await response.json()
@@ -70,18 +71,12 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
           <div className="column is-4">
             <LabelValue label="Status">
               {outcome === "UP" ? (
-                <span className="tag is-success is-rounded has-text-weight-semibold">
-                  Online
-                </span>
+                <Tag value="Online" color="is-success" />
               ) : outcome === "DOWN" ? (
-                <span className="tag is-danger is-rounded has-text-weight-semibold">
-                  Offline
-                </span>
+                <Tag value="Offline" color="is-danger" />
               ) : (
-                <span className="tag is-warning is-rounded has-text-weight-semibold">
-                  Checking
-                </span>
-              )}
+                    <Tag value="Checking" color="is-warning" />
+                  )}
             </LabelValue>
           </div>
         </div>
