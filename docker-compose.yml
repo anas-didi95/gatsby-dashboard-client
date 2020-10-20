@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     environment:
       GATSBY_API_SECURITY: ${GATSBY_API_SECURITY?:GATSBY_API_SECURITY}
+      GATSBY_API_BOT: ${GATSBY_API_BOT?:GATSBY_API_BOT}
     command: sleep infinity
     volumes:
       - ./:/workspace

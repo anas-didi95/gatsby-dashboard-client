@@ -13,7 +13,7 @@ const StatusPage: React.FC<{ location: any }> = ({ location }) => {
   }
   const dataList: TData[] = [
     { title: "Security", url: process.env.GATSBY_API_SECURITY ?? "" },
-    { title: "Bot", url: "https://api.anasdidi.dev/bot" },
+    { title: "Bot", url: process.env.GATSBY_API_BOT ?? "" },
   ]
 
   return (
