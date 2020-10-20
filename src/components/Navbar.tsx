@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react"
 import AuthContext from "../utils/contexts/AuthContext"
 import Button from "./Button"
 import ButtonGroup from "./ButtonGroup"
+import Modal from "./Modal"
 
 interface INavbar {
   title: string
@@ -106,65 +107,49 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
   )
 }
 
-const CreditModal: React.FC<{ isActive: boolean; toggleActive: any }> = ({
-  isActive,
-  toggleActive,
-}) => (
-  <div className={`modal ${isActive ? "is-active" : ""}`}>
-    <div className="modal-background"></div>
-    <div className="modal-card">
-      <header className="modal-card-head">
-        <p className="modal-card-title">Credit</p>
-        <button
-          className="delete"
-          aria-label="close"
-          onClick={toggleActive}
-        ></button>
-      </header>
-      <section className="modal-card-body has-text-black">
-        <div className="content">
-          <h3>Resources</h3>
-          <ul className="mb-5">
-            <li>
-              Gatsby starter{" "}
-              <a href="https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript">
-                gatsby-starter-default-typescript
-              </a>{" "}
-              by andykenward.
-            </li>
-            <li>
-              Icons made by{" "}
-              <a
-                href="https://www.flaticon.com/authors/prosymbols"
-                title="Prosymbols"
-              >
-                Prosymbols
-              </a>{" "}
-              from{" "}
-              <a href="https://www.flaticon.com/" title="Flaticon">
-                {" "}
-                www.flaticon.com
-              </a>
-            </li>
-            <li>
-              Icons made by{" "}
-              <a
-                href="https://www.flaticon.com/authors/freepik"
-                title="Freepik"
-              >
-                Freepik
-              </a>{" "}
-              from{" "}
-              <a href="https://www.flaticon.com/" title="Flaticon">
-                {" "}
-                www.flaticon.com
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+const CreditModal: React.FC<{
+  isActive: boolean
+  toggleActive: () => void
+}> = ({ isActive, toggleActive }) => (
+  <Modal title="Credit" isActive={isActive} toggleActive={toggleActive}>
+    <div className="content">
+      <h3>Resources</h3>
+      <ul className="mb-5">
+        <li>
+          Gatsby starter{" "}
+          <a href="https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript">
+            gatsby-starter-default-typescript
+          </a>{" "}
+          by andykenward.
+        </li>
+        <li>
+          Icons made by{" "}
+          <a
+            href="https://www.flaticon.com/authors/prosymbols"
+            title="Prosymbols"
+          >
+            Prosymbols
+          </a>{" "}
+          from{" "}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            {" "}
+            www.flaticon.com
+          </a>
+        </li>
+        <li>
+          Icons made by{" "}
+          <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+            Freepik
+          </a>{" "}
+          from{" "}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            {" "}
+            www.flaticon.com
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
+  </Modal>
 )
 
 export default Navbar
