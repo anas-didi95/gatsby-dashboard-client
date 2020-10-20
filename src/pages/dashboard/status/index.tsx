@@ -14,7 +14,6 @@ const StatusPage: React.FC<{ location: any }> = ({ location }) => {
   const dataList: TData[] = [
     { title: "Security", url: process.env.GATSBY_API_SECURITY ?? "" },
     { title: "Bot", url: "https://api.anasdidi.dev/bot" },
-    { title: "Bot2", url: "https://api.anasdidi.dev/bot" },
   ]
 
   return (
@@ -49,7 +48,7 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
   const [outcome, setOutcome] = useState<string>("")
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         const response = await fetch(`${url}/ping`)
         const responseBody = await response.json()
@@ -75,8 +74,8 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
               ) : outcome === "DOWN" ? (
                 <Tag value="Offline" color="is-danger" />
               ) : (
-                    <Tag value="Checking" color="is-warning" />
-                  )}
+                <Tag value="Checking" color="is-warning" />
+              )}
             </LabelValue>
           </div>
         </div>
