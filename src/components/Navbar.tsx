@@ -41,7 +41,7 @@ const NavbarBrand: React.FC<{
   title: string
   icon: FixedObject
 }> = ({ toggleActive, isActive, title, icon }) => (
-  <div className="navbar-brand">
+  <div className="navbar-brand mr-4">
     <Link to="/dashboard" className="navbar-item">
       <GatsbyImage fixed={icon} />
       <p className="title ml-2 is-4 has-text-white">{title}</p>
@@ -67,6 +67,11 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
 
   return (
     <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
+      <div className="navbar-start">
+        <Link to="/dashboard/status" className="navbar-item">
+          Status
+        </Link>
+      </div>
       <div className="navbar-end">
         <div className="navbar-item">
           <ButtonGroup align="right">
