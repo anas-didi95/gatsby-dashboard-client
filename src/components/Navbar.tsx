@@ -67,11 +67,13 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
 
   return (
     <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
-      <div className="navbar-start">
-        <Link to="/dashboard/status" className="navbar-item">
-          Status
-        </Link>
-      </div>
+      {authContext.isAuth() && (
+        <div className="navbar-start">
+          <Link to="/dashboard/status" className="navbar-item">
+            Status
+          </Link>
+        </div>
+      )}
       <div className="navbar-end">
         <div className="navbar-item">
           <ButtonGroup align="right">
