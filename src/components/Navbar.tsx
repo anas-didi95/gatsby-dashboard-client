@@ -59,48 +59,112 @@ const NavbarBrand: React.FC<{
 
 const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
   const authContext = useContext(AuthContext)
+  const [creditActive, setCreditActive] = useState<boolean>(false)
 
   const logOut = () => {
     authContext.logOut()
     navigate("/")
   }
 
+  const toggleCreditActive = () => setCreditActive((prev) => !prev)
+
   return (
-    <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
-      {authContext.isAuth() && (
-        <div className="navbar-start">
-          <Link to="/dashboard/status" className="navbar-item">
-            Status
-          </Link>
-        </div>
-      )}
-      <div className="navbar-end">
-        <div className="navbar-item">
-          <ButtonGroup align="right">
-            <Button
-              type="button"
-              color="info"
-              label="Credits"
-              isInverted
-              isOutlined
-              onClick={() => {
-                console.warn("noop")
-                navigate("/dashboard/error404")
-              }}
-            />
-            {authContext.isAuth() && (
+    <>
+      <div className={`navbar-menu ${!!isActive ? "is-active" : ""}`}>
+        {authContext.isAuth() && (
+          <div className="navbar-start">
+            <Link to="/dashboard/status" className="navbar-item">
+              Status
+            </Link>
+          </div>
+        )}
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <ButtonGroup align="right">
               <Button
                 type="button"
-                color="primary"
-                label="Log Out"
-                onClick={logOut}
+                color="info"
+                label="Credit"
+                isInverted
+                isOutlined
+                onClick={toggleCreditActive}
               />
-            )}
-          </ButtonGroup>
+              {authContext.isAuth() && (
+                <Button
+                  type="button"
+                  color="primary"
+                  label="Log Out"
+                  onClick={logOut}
+                />
+              )}
+            </ButtonGroup>
+          </div>
         </div>
       </div>
-    </div>
+      <CreditModal isActive={creditActive} toggleActive={toggleCreditActive} />
+    </>
   )
 }
+
+const CreditModal: React.FC<{ isActive: boolean; toggleActive: any }> = ({
+  isActive,
+  toggleActive,
+}) => (
+  <div className={`modal ${isActive ? "is-active" : ""}`}>
+    <div className="modal-background"></div>
+    <div className="modal-card">
+      <header className="modal-card-head">
+        <p className="modal-card-title">Credit</p>
+        <button
+          className="delete"
+          aria-label="close"
+          onClick={toggleActive}
+        ></button>
+      </header>
+      <section className="modal-card-body has-text-black">
+        <div className="content">
+          <h3>Resources</h3>
+          <ul className="mb-5">
+            <li>
+              Gatsby starter{" "}
+              <a href="https://www.gatsbyjs.org/starters/andykenward/gatsby-starter-default-typescript">
+                gatsby-starter-default-typescript
+              </a>{" "}
+              by andykenward.
+            </li>
+            <li>
+              Icons made by{" "}
+              <a
+                href="https://www.flaticon.com/authors/prosymbols"
+                title="Prosymbols"
+              >
+                Prosymbols
+              </a>{" "}
+              from{" "}
+              <a href="https://www.flaticon.com/" title="Flaticon">
+                {" "}
+                www.flaticon.com
+              </a>
+            </li>
+            <li>
+              Icons made by{" "}
+              <a
+                href="https://www.flaticon.com/authors/freepik"
+                title="Freepik"
+              >
+                Freepik
+              </a>{" "}
+              from{" "}
+              <a href="https://www.flaticon.com/" title="Flaticon">
+                {" "}
+                www.flaticon.com
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+)
 
 export default Navbar
