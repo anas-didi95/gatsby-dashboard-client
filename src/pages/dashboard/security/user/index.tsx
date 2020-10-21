@@ -12,7 +12,7 @@ const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
         <div className="columns">
           <div className="column" />
           <div className="column is-10">
-            <Breadcrumb paths={["Security", "User List"]} />
+            <Breadcrumb paths={["Security", "User"]} />
             <br />
             <UserListTable />
           </div>
@@ -67,13 +67,14 @@ const UserListTable: React.FC<{}> = () => {
   return (
     <Panel title="User Listing" color="is-link">
       <Table headers={["No", "Username", "Full Name"]} widths={[10, 40, 50]}>
-        {userList.map((user, i) => (
-          <tr key={`${user.id}`}>
-            <td>{i + 1}</td>
-            <td>{user.username}</td>
-            <td>{user.fullName}</td>
-          </tr>
-        ))}
+        {userList.length > 0 &&
+          userList.map((user, i) => (
+            <tr key={`${user.id}`}>
+              <td>{i + 1}</td>
+              <td>{user.username}</td>
+              <td>{user.fullName}</td>
+            </tr>
+          ))}
       </Table>
     </Panel>
   )
