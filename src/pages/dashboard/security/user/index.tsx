@@ -1,6 +1,7 @@
 import React from "react"
 import Breadcrumb from "../../../../components/Breadcrumb"
 import Panel from "../../../../components/Panel"
+import Table from "../../../../components/Table"
 import AppLayout from "../../../../layouts/AppLayout"
 
 const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
@@ -23,30 +24,11 @@ const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
 
 const UserListTable: React.FC<{}> = () => (
   <Panel title="User Listing" color="is-link">
-    <div className="table-container">
-      <table className="table is-striped is-bordered is-fullwidth is-hoverable">
-        <thead>
-          <tr>
-            <th style={{ width: "10%" }}>No</th>
-            <th style={{ width: "40%" }}>Username</th>
-            <th style={{ width: "50%" }}>Full Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Username</td>
-            <td>Fullname</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Username</td>
-            <td>Fullname</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Table
+      headers={["No", "Username", "Full Name"]}
+      widths={[10, 40, 50]}
+    ></Table>
   </Panel>
 )
 
-export default SecurityUserListPage;
+export default SecurityUserListPage
