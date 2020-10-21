@@ -79,6 +79,14 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
             <Link to="/dashboard/status" className="navbar-item">
               Status
             </Link>
+            <div className="navbar-item has-dropdown is-hoverable">
+              <span className="navbar-link">Security</span>
+              <div className="navbar-dropdown">
+                <Link to="/dashboard/security/user" className="navbar-item">
+                  User
+                </Link>
+              </div>
+            </div>
           </div>
         )}
         <div className="navbar-end">
