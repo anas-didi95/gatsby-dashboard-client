@@ -1,5 +1,8 @@
+import { Link } from "gatsby"
 import React, { useContext, useEffect, useState } from "react"
 import Breadcrumb from "../../../../components/Breadcrumb"
+import Button from "../../../../components/Button"
+import ButtonGroup from "../../../../components/ButtonGroup"
 import Panel from "../../../../components/Panel"
 import Table from "../../../../components/Table"
 import AppLayout from "../../../../layouts/AppLayout"
@@ -15,6 +18,8 @@ const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
             <Breadcrumb paths={["Security", "User"]} />
             <br />
             <UserListTable />
+            <br />
+            <ActionButton />
           </div>
           <div className="column" />
         </div>
@@ -79,5 +84,13 @@ const UserListTable: React.FC<{}> = () => {
     </Panel>
   )
 }
+
+const ActionButton: React.FC<{}> = () => (
+  <ButtonGroup align="right">
+    <Link to="/dashboard/security/user/add" className="button is-primary">
+      Add
+    </Link>
+  </ButtonGroup>
+)
 
 export default SecurityUserListPage
