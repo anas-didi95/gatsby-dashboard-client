@@ -75,7 +75,7 @@ const LoginForm: React.FC<{}> = () => {
               <ButtonGroup align="right">
                 <Button
                   type="submit"
-                  color="primary"
+                  color="is-primary"
                   label="Login"
                   onClick={handleSubmit(onSubmit)}
                   isLoading={hasSubmit}

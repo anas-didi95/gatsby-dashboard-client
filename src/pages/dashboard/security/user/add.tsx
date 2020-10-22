@@ -92,6 +92,12 @@ const AddForm: React.FC<{}> = () => {
     }
   }
 
+  const onBack = () => {
+    if (confirm("Are you sure to go back? All changes will be discarded.")) {
+      navigate("/dashboard/security/user")
+    }
+  }
+
   return (
     <Panel title="Add User" color="is-link">
       <Box>
@@ -148,10 +154,17 @@ const AddForm: React.FC<{}> = () => {
           </div>
           <ButtonGroup align="right">
             <Button
+              type="button"
+              label="Back"
+              onClick={onBack}
+              color="is-danger"
+              isInverted={true}
+            />
+            <Button
               label="Submit"
               type="submit"
               onClick={handleSubmit(onSubmit)}
-              color="primary"
+              color="is-primary"
               isLoading={isLoading}
             />
           </ButtonGroup>
