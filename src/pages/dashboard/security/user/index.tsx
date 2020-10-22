@@ -1,5 +1,6 @@
 import { Link } from "gatsby"
 import React, { useContext, useEffect, useState } from "react"
+import Alert from "../../../../components/Alert"
 import Breadcrumb from "../../../../components/Breadcrumb"
 import Button from "../../../../components/Button"
 import ButtonGroup from "../../../../components/ButtonGroup"
@@ -17,6 +18,7 @@ const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
           <div className="column is-10">
             <Breadcrumb paths={["Security", "User"]} />
             <br />
+            <Alert />
             <UserListTable />
             <br />
             <ActionButton />

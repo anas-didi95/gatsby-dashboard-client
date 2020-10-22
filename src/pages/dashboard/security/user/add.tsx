@@ -1,5 +1,7 @@
-import React from "react"
+import { navigate } from "gatsby"
+import React, { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
+import Alert from "../../../../components/Alert"
 import Box from "../../../../components/Box"
 import Breadcrumb from "../../../../components/Breadcrumb"
 import Button from "../../../../components/Button"
@@ -8,6 +10,8 @@ import Form from "../../../../components/Form"
 import FormInput from "../../../../components/FormInput"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
+import AlertContext from "../../../../utils/contexts/AlertContext"
+import AuthContext from "../../../../utils/contexts/AuthContext"
 
 const SecurityUserAddPage: React.FC<{ location: any }> = ({ location }) => (
   <AppLayout title="Security - Add User" location={location} needAuth={true}>
@@ -18,6 +22,7 @@ const SecurityUserAddPage: React.FC<{ location: any }> = ({ location }) => (
           <div className="column is-10">
             <Breadcrumb paths={["Security", "User"]} />
             <br />
+            <Alert />
             <AddForm />
           </div>
           <div className="column" />
@@ -36,9 +41,55 @@ const AddForm: React.FC<{}> = () => {
     email: string
   }
   const { register, errors, handleSubmit, watch } = useForm<TForm>()
+  const authContext = useContext(AuthContext)
+  const [isLoading, setLoading] = useState<boolean>(false)
+  const alertContext = useContext(AlertContext)
 
-  const onSubmit = (data: TForm) => {
-    console.log("data", data)
+  const onSubmit = async (data: TForm) => {
+    try {
+      alertContext.clearAlert()
+      setLoading(true)
+      const response = await fetch(
+        `${process.env.GATSBY_API_SECURITY}/api/user`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authContext.getAccessToken()}`,
+          },
+          body: JSON.stringify({
+            username: data.username,
+            password: data.password,
+            fullName: data.fullName,
+            email: data.email,
+          }),
+        }
+      )
+      const responseBody = await response.json()
+      setLoading(false)
+
+      if (responseBody.status.isSuccess) {
+        navigate("/dashboard/security/user", {
+          state: {
+            alert: {
+              message: responseBody.status.message,
+              type: "is-success",
+            },
+          },
+        })
+      } else {
+        console.error("[AddForm] responseBody", responseBody)
+        alertContext.setAlert(responseBody.status.message, "is-danger")
+      }
+    } catch (e) {
+      console.error("[AddForm] error", e)
+      setLoading(false)
+      alertContext.setAlert(
+        "Request Error! Please refer console log for info",
+        "is-danger"
+      )
+    }
   }
 
   return (
@@ -101,6 +152,7 @@ const AddForm: React.FC<{}> = () => {
               type="submit"
               onClick={handleSubmit(onSubmit)}
               color="primary"
+              isLoading={isLoading}
             />
           </ButtonGroup>
         </Form>
