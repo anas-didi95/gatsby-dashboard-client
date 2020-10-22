@@ -2,7 +2,7 @@ import React from "react"
 
 interface IButton {
   type: "button" | "submit"
-  color?: "primary" | "info"
+  color?: "is-primary" | "is-info" | "is-danger"
   label: string
   isInverted?: boolean
   isOutlined?: boolean
@@ -22,7 +22,7 @@ const Button: React.FC<IButton> = ({
   <button
     onClick={onClick}
     type={type}
-    className={`button ${!!color ? "is-" + color : ""} ${
+    className={`button ${!!color ? color : ""} ${
       !!isInverted ? "is-inverted" : ""
     } ${!!isOutlined ? "is-outlined" : ""} ${isLoading ? "is-loading" : ""}`}
     disabled={isLoading}

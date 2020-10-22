@@ -28,6 +28,11 @@ const Table: React.FC<ITable> = ({ headers, widths, children }) => (
           </tr>
         )}
       </tbody>
+      <tfoot>
+        <tr className="has-background-light">
+          <td colSpan={headers.length} />
+        </tr>
+      </tfoot>
     </table>
   </div>
 )

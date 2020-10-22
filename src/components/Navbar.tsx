@@ -94,7 +94,7 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
             <ButtonGroup align="right">
               <Button
                 type="button"
-                color="info"
+                color="is-info"
                 label="Credit"
                 isInverted
                 isOutlined
@@ -103,7 +103,7 @@ const NavbarMenu: React.FC<{ isActive: boolean }> = ({ isActive }) => {
               {authContext.isAuth() && (
                 <Button
                   type="button"
-                  color="primary"
+                  color="is-primary"
                   label="Log Out"
                   onClick={logOut}
                 />

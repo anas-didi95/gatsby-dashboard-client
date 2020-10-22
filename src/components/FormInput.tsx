@@ -2,7 +2,7 @@ import React from "react"
 
 interface IFormInput {
   label: string
-  type: "text" | "password"
+  type: "text" | "password" | "email"
   error: string | undefined
   register?: any
   name: string
