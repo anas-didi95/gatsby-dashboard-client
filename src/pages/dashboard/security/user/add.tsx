@@ -93,7 +93,7 @@ const AddForm: React.FC<{}> = () => {
     <Panel title="Add User" color="is-link">
       <Box>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div className="columns is-multiline">
+          <div className="columns is-multiline is-variable is-4">
             <div className="column is-6">
               <FormInput
                 label="Username"
