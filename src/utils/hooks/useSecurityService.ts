@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import AuthContext from "../contexts/AuthContext"
+import useConstants from "./useConstants"
 
 export type TUser = {
   id: string
@@ -12,14 +13,11 @@ export type TUser = {
 
 const useSecurityService = () => {
   const authContext = useContext(AuthContext)
-  const API_SECURITY = process.env.GATSBY_API_SECURITY
-  if (!process.env.GATSBY_API_SECURITY) {
-    console.error("[useSecurityService] GATSBY_API_SECURITY is undefined!")
-  }
+  const constants = useConstants()
 
   const getUserList = async (): Promise<TUser[]> => {
     try {
-      const response = await fetch(`${API_SECURITY}/graphql`, {
+      const response = await fetch(`${constants.getApiSecurity()}/graphql`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -57,23 +55,20 @@ const useSecurityService = () => {
     }
   }> => {
     try {
-      const response = await fetch(
-        `${process.env.GATSBY_API_SECURITY}/api/user`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authContext.getAccessToken()}`,
-          },
-          body: JSON.stringify({
-            username: user.username,
-            password: user.password,
-            fullName: user.fullName,
-            email: user.email,
-          }),
-        }
-      )
+      const response = await fetch(`${constants.getApiSecurity()}/api/user`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authContext.getAccessToken()}`,
+        },
+        body: JSON.stringify({
+          username: user.username,
+          password: user.password,
+          fullName: user.fullName,
+          email: user.email,
+        }),
+      })
       const responseBody = await response.json()
       return responseBody
     } catch (e) {
