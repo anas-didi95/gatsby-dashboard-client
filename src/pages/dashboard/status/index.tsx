@@ -5,15 +5,17 @@ import LabelValue from "../../../components/LabelValue"
 import Panel from "../../../components/Panel"
 import Tag from "../../../components/Tag"
 import AppLayout from "../../../layouts/AppLayout"
+import useConstants from "../../../utils/hooks/useConstants"
 
 const StatusPage: React.FC<{ location: any }> = ({ location }) => {
+  const constants = useConstants()
   type TData = {
     title: string
     url: string
   }
   const dataList: TData[] = [
-    { title: "Security", url: process.env.GATSBY_API_SECURITY ?? "" },
-    { title: "Bot", url: process.env.GATSBY_API_BOT ?? "" },
+    { title: "Security", url: constants.getApiSecurity() },
+    { title: "Bot", url: constants.getApiBot() },
   ]
 
   return (

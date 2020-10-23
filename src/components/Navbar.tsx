@@ -20,20 +20,17 @@ const Navbar: React.FC<INavbar> = ({ title, icon }) => {
 
   return (
     <nav
-      className="navbar is-info"
+      className="navbar is-info is-spaced"
       role="navigation"
       aria-label="main navigation"
-      style={{ padding: "0.5rem" }}
     >
-      <div className="container">
-        <NavbarBrand
-          toggleActive={toggleActive}
-          isActive={isActive}
-          title={title}
-          icon={icon}
-        />
-        <NavbarMenu isActive={isActive} />
-      </div>
+      <NavbarBrand
+        toggleActive={toggleActive}
+        isActive={isActive}
+        title={title}
+        icon={icon}
+      />
+      <NavbarMenu isActive={isActive} />
     </nav>
   )
 }

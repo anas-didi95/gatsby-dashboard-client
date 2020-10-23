@@ -11,7 +11,9 @@ import FormInput from "../../../../components/FormInput"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
 import AlertContext from "../../../../utils/contexts/AlertContext"
-import AuthContext from "../../../../utils/contexts/AuthContext"
+import useSecurityService, {
+  TUser,
+} from "../../../../utils/hooks/useSecurityService"
 
 const SecurityUserAddPage: React.FC<{ location: any }> = ({ location }) => (
   <AppLayout title="Security - Add User" location={location} needAuth={true}>
@@ -41,32 +43,23 @@ const AddForm: React.FC<{}> = () => {
     email: string
   }
   const { register, errors, handleSubmit, watch } = useForm<TForm>()
-  const authContext = useContext(AuthContext)
   const [isLoading, setLoading] = useState<boolean>(false)
   const alertContext = useContext(AlertContext)
+  const securityService = useSecurityService()
 
   const onSubmit = async (data: TForm) => {
     try {
+      const user: TUser = {
+        email: data.email,
+        fullName: data.fullName,
+        id: "",
+        password: data.password,
+        username: data.username,
+        version: 0,
+      }
       alertContext.clearAlert()
       setLoading(true)
-      const response = await fetch(
-        `${process.env.GATSBY_API_SECURITY}/api/user`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authContext.getAccessToken()}`,
-          },
-          body: JSON.stringify({
-            username: data.username,
-            password: data.password,
-            fullName: data.fullName,
-            email: data.email,
-          }),
-        }
-      )
-      const responseBody = await response.json()
+      const responseBody = await securityService.addUser(user)
       setLoading(false)
 
       if (responseBody.status.isSuccess) {
@@ -79,14 +72,12 @@ const AddForm: React.FC<{}> = () => {
           },
         })
       } else {
-        console.error("[AddForm] responseBody", responseBody)
         alertContext.setAlert(responseBody.status.message, "is-danger")
       }
     } catch (e) {
-      console.error("[AddForm] error", e)
       setLoading(false)
       alertContext.setAlert(
-        "Request Error! Please refer console log for info",
+        "Add user failed! Please refer console log for info",
         "is-danger"
       )
     }
@@ -102,7 +93,7 @@ const AddForm: React.FC<{}> = () => {
     <Panel title="Add User" color="is-link">
       <Box>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div className="columns is-multiline">
+          <div className="columns is-multiline is-variable is-4">
             <div className="column is-6">
               <FormInput
                 label="Username"

@@ -1,8 +1,7 @@
+import useConstants from "./useConstants"
+
 const useAuth = () => {
-  const API_URL = `${process.env.GATSBY_API_SECURITY}/api/jwt`
-  if (!process.env.GATSBY_API_SECURITY) {
-    console.error("[useAuth] GATSBY_API_SECURITY is undefined!")
-  }
+  const constants = useConstants()
 
   const login = async (
     username: string,
@@ -17,17 +16,20 @@ const useAuth = () => {
     }
   }> => {
     try {
-      const response = await fetch(`${API_URL}/login`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      })
+      const response = await fetch(
+        `${constants.getApiSecurity()}/api/jwt/login`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        }
+      )
       const responseBody = await response.json()
       return responseBody
     } catch (e) {
