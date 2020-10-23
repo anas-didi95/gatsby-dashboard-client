@@ -2,12 +2,14 @@ import { Link } from "gatsby"
 import React, { useContext, useEffect, useState } from "react"
 import Alert from "../../../../components/Alert"
 import Breadcrumb from "../../../../components/Breadcrumb"
-import Button from "../../../../components/Button"
 import ButtonGroup from "../../../../components/ButtonGroup"
 import Panel from "../../../../components/Panel"
 import Table from "../../../../components/Table"
 import AppLayout from "../../../../layouts/AppLayout"
-import AuthContext from "../../../../utils/contexts/AuthContext"
+import AlertContext from "../../../../utils/contexts/AlertContext"
+import useSecurityService, {
+  TUser,
+} from "../../../../utils/hooks/useSecurityService"
 
 const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
   <AppLayout title="Security - User" location={location} needAuth={true}>
@@ -31,43 +33,21 @@ const SecurityUserListPage: React.FC<{ location: any }> = ({ location }) => (
 )
 
 const UserListTable: React.FC<{}> = () => {
-  type TUser = {
-    id: string
-    username: string
-    fullName: string
-    version: number
-  }
   const [userList, setUserList] = useState<TUser[]>([])
-  const authContext = useContext(AuthContext)
+  const securityService = useSecurityService()
+  const alertContext = useContext(AlertContext)
 
   useEffect(() => {
     ;(async () => {
-      const response = await fetch(
-        `${process.env.GATSBY_API_SECURITY}/graphql`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authContext.getAccessToken()}`,
-          },
-          body: JSON.stringify({
-            query: `
-            query {
-              getUserList {
-                id
-                username
-                fullName
-                version
-              }
-            }
-          `,
-            variables: null,
-          }),
-        }
-      )
-      const responseBody = await response.json()
-      setUserList(responseBody.data.getUserList)
+      try {
+        const userList = await securityService.getUserList()
+        setUserList(userList)
+      } catch (e) {
+        alertContext.setAlert(
+          "Get user listing failed! Please refer console log for info",
+          "is-danger"
+        )
+      }
     })()
   }, [])
 
