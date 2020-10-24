@@ -45,12 +45,14 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
     version: 0,
   })
   const alertContext = useContext(AlertContext)
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     ;(async () => {
       try {
         const responseBody = await securityService.getUserById(userId)
         setUser(responseBody)
+        setLoading(false)
       } catch (e) {
         alertContext.setAlert(
           "Get user detail failed! Please refer console log for info",
@@ -84,9 +86,13 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
             type="button"
             color="is-danger"
             isOutlined
+            isLoading={isLoading}
             onClick={() => console.log("noop")}
           />
-          <Link to="/" className="button is-primary">
+          <Link
+            to="/"
+            className={`button is-primary ${isLoading ? "is-loading" : ""}`}
+          >
             Edit
           </Link>
         </ButtonGroup>
