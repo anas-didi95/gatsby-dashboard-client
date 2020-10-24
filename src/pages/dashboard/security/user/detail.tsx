@@ -23,9 +23,9 @@ const SecurityUserDetailPage: React.FC<{ location: any }> = ({ location }) => (
             <Breadcrumb paths={["Security", "User"]} />
             <br />
             <Alert />
-            <UserDetailPanel userId={location.state.id} />
+            <UserDetailPanel userId={location.state?.id ?? ""} />
             <br />
-            <ActionButton userId={location.state.id} />
+            <ActionButton />
           </div>
           <div className="column" />
         </div>
@@ -48,7 +48,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         const responseBody = await securityService.getUserById(userId)
         setUser(responseBody)
@@ -101,7 +101,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   )
 }
 
-const ActionButton: React.FC<{ userId: string }> = () => (
+const ActionButton: React.FC<{}> = () => (
   <ButtonGroup align="right">
     <Link to="/dashboard/security/user" className="button is-info">
       Back
