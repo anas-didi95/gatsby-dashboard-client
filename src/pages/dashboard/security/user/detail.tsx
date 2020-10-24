@@ -48,7 +48,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         const responseBody = await securityService.getUserById(userId)
         setUser(responseBody)
@@ -70,13 +70,13 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
             <LabelValue label="Username">{user.username}</LabelValue>
           </div>
           <div className="column is-6">
-            <LabelValue label="Version">{user.version}</LabelValue>
-          </div>
-          <div className="column is-6">
             <LabelValue label="Full Name">{user.fullName}</LabelValue>
           </div>
           <div className="column is-6">
             <LabelValue label="Email">{user.email}</LabelValue>
+          </div>
+          <div className="column is-6">
+            <LabelValue label="Version">{user.version}</LabelValue>
           </div>
         </div>
         <hr />
