@@ -58,7 +58,14 @@ const UserListTable: React.FC<{}> = () => {
           userList.map((user, i) => (
             <tr key={`${user.id}`}>
               <td>{i + 1}</td>
-              <td>{user.username}</td>
+              <td>
+                <Link
+                  to="/dashboard/security/user/detail"
+                  state={{ id: user.id }}
+                >
+                  {user.username}
+                </Link>
+              </td>
               <td>{user.fullName}</td>
             </tr>
           ))}
