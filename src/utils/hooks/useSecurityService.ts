@@ -77,7 +77,41 @@ const useSecurityService = () => {
     }
   }
 
-  return { getUserList, addUser }
+  const getUserById = async (userId: string): Promise<TUser> => {
+    try {
+      const response = await fetch(`${constants.getApiSecurity()}/graphql`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authContext.getAccessToken()}`,
+        },
+        body: JSON.stringify({
+          query: `
+            query($id: String!) {
+              getUserById(id: $id) {
+                id
+                username
+                fullName
+                email
+                version
+              }
+            }
+          `,
+          variables: {
+            id: userId,
+          },
+        }),
+      })
+      const responseBody = await response.json()
+      return responseBody.data.getUserById
+    } catch (e) {
+      console.error("[useSecurityService] getUserById failed!", e)
+      throw e
+    }
+  }
+
+  return { getUserList, addUser, getUserById }
 }
 
 export default useSecurityService

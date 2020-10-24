@@ -1,0 +1,95 @@
+import { Link } from "gatsby"
+import React, { useEffect, useState } from "react"
+import Box from "../../../../components/Box"
+import Breadcrumb from "../../../../components/Breadcrumb"
+import Button from "../../../../components/Button"
+import ButtonGroup from "../../../../components/ButtonGroup"
+import LabelValue from "../../../../components/LabelValue"
+import Panel from "../../../../components/Panel"
+import AppLayout from "../../../../layouts/AppLayout"
+import useSecurityService, {
+  TUser,
+} from "../../../../utils/hooks/useSecurityService"
+
+const SecurityUserDetailPage: React.FC<{ location: any }> = ({ location }) => (
+  <AppLayout title="Security - User Detail" location={location} needAuth={true}>
+    <section className="section">
+      <article className="container">
+        <div className="columns">
+          <div className="column" />
+          <div className="column is-10">
+            <Breadcrumb paths={["Security", "User"]} />
+            <br />
+            <UserDetailPanel userId={location.state.id} />
+            <br />
+            <ActionButton userId={location.state.id} />
+          </div>
+          <div className="column" />
+        </div>
+      </article>
+    </section>
+  </AppLayout>
+)
+
+const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
+  const securityService = useSecurityService()
+  const [user, setUser] = useState<TUser>({
+    email: "-",
+    fullName: "-",
+    id: userId,
+    password: "-",
+    username: "-",
+    version: 0,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      const responseBody = await securityService.getUserById(userId)
+      setUser(responseBody)
+    })()
+  }, [])
+
+  return (
+    <Panel title="User Detail" color="is-link">
+      <Box>
+        <div className="columns is-multiline">
+          <div className="column is-6">
+            <LabelValue label="Username">{user.username}</LabelValue>
+          </div>
+          <div className="column is-6">
+            <LabelValue label="Version">{user.version}</LabelValue>
+          </div>
+          <div className="column is-6">
+            <LabelValue label="Full Name">{user.fullName}</LabelValue>
+          </div>
+          <div className="column is-6">
+            <LabelValue label="Email">{user.email}</LabelValue>
+          </div>
+        </div>
+        <hr />
+        <ButtonGroup align="right">
+          <Button
+            label="Delete"
+            type="button"
+            color="is-danger"
+            isOutlined
+            onClick={() => console.log("noop")}
+          />
+          <Link to="/" className="button is-primary">
+            Edit
+          </Link>
+        </ButtonGroup>
+      </Box>
+    </Panel>
+  )
+}
+
+const ActionButton: React.FC<{ userId: string }> = () => (
+  <ButtonGroup align="right">
+    <Link to="/dashboard/security/user" className="button is-info">
+      Back
+    </Link>
+  </ButtonGroup>
+)
+
+export default SecurityUserDetailPage

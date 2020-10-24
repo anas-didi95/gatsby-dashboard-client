@@ -21,7 +21,7 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "query": "query ($id: String!) { getUserById(id: $id) { id username version } }",
+  "query": "query ($id: String!) { getUserById(id: $id) { id username fullName email version } }",
   "variables": {
     "id": "47542FEAB68D400E978952F71D3E6167"
   }
