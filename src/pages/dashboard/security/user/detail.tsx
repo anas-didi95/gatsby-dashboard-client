@@ -1,5 +1,6 @@
 import { Link } from "gatsby"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
+import Alert from "../../../../components/Alert"
 import Box from "../../../../components/Box"
 import Breadcrumb from "../../../../components/Breadcrumb"
 import Button from "../../../../components/Button"
@@ -7,6 +8,7 @@ import ButtonGroup from "../../../../components/ButtonGroup"
 import LabelValue from "../../../../components/LabelValue"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
+import AlertContext from "../../../../utils/contexts/AlertContext"
 import useSecurityService, {
   TUser,
 } from "../../../../utils/hooks/useSecurityService"
@@ -20,6 +22,7 @@ const SecurityUserDetailPage: React.FC<{ location: any }> = ({ location }) => (
           <div className="column is-10">
             <Breadcrumb paths={["Security", "User"]} />
             <br />
+            <Alert />
             <UserDetailPanel userId={location.state.id} />
             <br />
             <ActionButton userId={location.state.id} />
@@ -41,11 +44,19 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
     username: "-",
     version: 0,
   })
+  const alertContext = useContext(AlertContext)
 
   useEffect(() => {
     ;(async () => {
-      const responseBody = await securityService.getUserById(userId)
-      setUser(responseBody)
+      try {
+        const responseBody = await securityService.getUserById(userId)
+        setUser(responseBody)
+      } catch (e) {
+        alertContext.setAlert(
+          "Get user detail failed! Please refer console log for info",
+          "is-danger"
+        )
+      }
     })()
   }, [])
 
