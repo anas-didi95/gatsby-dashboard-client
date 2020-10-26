@@ -1,5 +1,6 @@
 import { Link } from "gatsby"
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 import Box from "../../../../components/Box"
 import Breadcrumb from "../../../../components/Breadcrumb"
 import Button from "../../../../components/Button"
@@ -9,6 +10,9 @@ import FormInput from "../../../../components/FormInput"
 import LabelValue from "../../../../components/LabelValue"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
+import useSecurityService, {
+  TUser,
+} from "../../../../utils/hooks/useSecurityService"
 
 const SecurityUserEditPage: React.FC<{ location: any }> = ({ location }) => (
   <AppLayout title="Security - Edit User" location={location} needAuth={true}>
@@ -19,42 +23,80 @@ const SecurityUserEditPage: React.FC<{ location: any }> = ({ location }) => (
           <div className="column is-10">
             <Breadcrumb paths={["Security", "User"]} />
             <br />
-            <EditForm />
+            <EditForm userId={location.state?.id ?? ""} />
           </div>
           <div className="column" />
         </div>
-        Edit User - id: {location.state?.id ?? "empty"}
       </article>
     </section>
   </AppLayout>
 )
 
-const EditForm: React.FC<{}> = () => {
+const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
+  type TForm = {
+    fullName: string
+    email: string
+  }
+  const { register, errors, handleSubmit, setValue } = useForm<TForm>()
+  const [user, setUser] = useState<TUser>({
+    email: "-",
+    fullName: "-",
+    id: "-",
+    password: "-",
+    username: "-",
+    version: -1,
+  })
+  const securityService = useSecurityService()
+  const [isLoading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const responseBody = await securityService.getUserById(userId)
+        setUser({ ...responseBody, password: "****" })
+        setLoading(false)
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    setValue("fullName", user.fullName)
+    setValue("email", user.email)
+  }, [user.username])
+
+  const onSubmit = (data: TForm) => {
+    console.log("data", data)
+  }
+
   return (
     <Panel title="Edit User" color="is-link">
       <Box>
-        <Form onSubmit={() => console.log("noop")}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="columns is-multiline">
             <div className="column is-6">
-              <LabelValue label="Username">Username</LabelValue>
+              <LabelValue label="Username">{user.username}</LabelValue>
             </div>
             <div className="column is-6">
-              <LabelValue label="Password">****</LabelValue>
+              <LabelValue label="Password">{user.password}</LabelValue>
             </div>
             <div className="column is-6">
               <FormInput
-                label="Username"
-                name="username"
-                error=""
+                label="Full Name"
+                name="fullName"
                 type="text"
+                error={errors.fullName?.message}
+                register={register({ required: "Full Name is mandatory!" })}
               />
             </div>
             <div className="column is-6">
               <FormInput
-                label="Username"
-                name="username"
-                error=""
+                label="Email"
+                name="email"
                 type="text"
+                error={errors.email?.message}
+                register={register({ required: "Email is mandatory!" })}
               />
             </div>
           </div>
@@ -65,13 +107,15 @@ const EditForm: React.FC<{}> = () => {
               color="is-danger"
               isOutlined
               type="submit"
+              isLoading={isLoading}
               onClick={() => console.log("noop")}
             />
             <Button
               label="Update"
               color="is-primary"
               type="submit"
-              onClick={() => console.log("noop")}
+              isLoading={isLoading}
+              onClick={handleSubmit(onSubmit)}
             />
           </ButtonGroup>
         </Form>
