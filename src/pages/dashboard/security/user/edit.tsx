@@ -1,4 +1,4 @@
-import { Link, navigate } from "gatsby"
+import { navigate } from "gatsby"
 import React, { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Alert from "../../../../components/Alert"
@@ -100,6 +100,12 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
     }
   }
 
+  const onBack = () => {
+    if (confirm("Are you sure to go back? All changes will be discarded.")) {
+      navigate("/dashboard/security/user/detail", { state: { id: userId } })
+    }
+  }
+
   return (
     <Panel title="Edit User" color="is-link">
       <Box>
@@ -136,9 +142,9 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
               label="Back"
               color="is-danger"
               isOutlined
-              type="submit"
+              type="button"
               isLoading={isLoading}
-              onClick={() => console.log("noop")}
+              onClick={onBack}
             />
             <Button
               label="Update"
