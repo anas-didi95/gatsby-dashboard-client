@@ -111,7 +111,40 @@ const useSecurityService = () => {
     }
   }
 
-  return { getUserList, addUser, getUserById }
+  const updateUser = async (
+    user: TUser
+  ): Promise<{
+    status: {
+      isSuccess: boolean
+      message: string
+    }
+  }> => {
+    try {
+      const response = await fetch(
+        `${constants.getApiSecurity()}/api/user/${user.id}`,
+        {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authContext.getAccessToken()}`,
+          },
+          body: JSON.stringify({
+            fullName: user.fullName,
+            email: user.email,
+            version: user.version,
+          }),
+        }
+      )
+      const responseBody = await response.json()
+      return responseBody
+    } catch (e) {
+      console.error("[useSecurityService] updateUser failed!", e)
+      throw e
+    }
+  }
+
+  return { getUserList, addUser, getUserById, updateUser }
 }
 
 export default useSecurityService

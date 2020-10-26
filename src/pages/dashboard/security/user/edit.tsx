@@ -1,4 +1,4 @@
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Box from "../../../../components/Box"
@@ -66,8 +66,28 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
     setValue("email", user.email)
   }, [user.username])
 
-  const onSubmit = (data: TForm) => {
-    console.log("data", data)
+  const onSubmit = async (data: TForm) => {
+    try {
+      const responseBody = await securityService.updateUser({
+        email: data.email,
+        fullName: data.fullName,
+        id: user.id,
+        password: "",
+        username: user.username,
+        version: user.version,
+      })
+
+      if (responseBody.status.isSuccess) {
+        navigate("/dashboard/security/user/detail", {
+          state: {
+            id: userId,
+            alert: { message: responseBody.status.message, type: "is-success" },
+          },
+        })
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (
