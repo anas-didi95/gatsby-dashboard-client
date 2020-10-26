@@ -1,6 +1,7 @@
 import { Link, navigate } from "gatsby"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import Alert from "../../../../components/Alert"
 import Box from "../../../../components/Box"
 import Breadcrumb from "../../../../components/Breadcrumb"
 import Button from "../../../../components/Button"
@@ -10,6 +11,7 @@ import FormInput from "../../../../components/FormInput"
 import LabelValue from "../../../../components/LabelValue"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
+import AlertContext from "../../../../utils/contexts/AlertContext"
 import useSecurityService, {
   TUser,
 } from "../../../../utils/hooks/useSecurityService"
@@ -23,6 +25,7 @@ const SecurityUserEditPage: React.FC<{ location: any }> = ({ location }) => (
           <div className="column is-10">
             <Breadcrumb paths={["Security", "User"]} />
             <br />
+            <Alert />
             <EditForm userId={location.state?.id ?? ""} />
           </div>
           <div className="column" />
@@ -48,6 +51,7 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
   })
   const securityService = useSecurityService()
   const [isLoading, setLoading] = useState<boolean>(true)
+  const alertContext = useContext(AlertContext)
 
   useEffect(() => {
     ;(async () => {
@@ -68,6 +72,8 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   const onSubmit = async (data: TForm) => {
     try {
+      alertContext.clearAlert()
+      setLoading(true)
       const responseBody = await securityService.updateUser({
         email: data.email,
         fullName: data.fullName,
@@ -86,7 +92,11 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
         })
       }
     } catch (e) {
-      console.error(e)
+      alertContext.setAlert(
+        "Update user failed! Please refer console log for info",
+        "is-danger"
+      )
+      setLoading(false)
     }
   }
 
