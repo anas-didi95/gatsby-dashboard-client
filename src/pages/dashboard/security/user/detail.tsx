@@ -90,7 +90,8 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
             onClick={() => console.log("noop")}
           />
           <Link
-            to="/"
+            to="/dashboard/security/user/edit"
+            state={{ id: userId }}
             className={`button is-primary ${isLoading ? "is-loading" : ""}`}
           >
             Edit
