@@ -48,7 +48,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         const responseBody = await securityService.getUserById(userId)
         setUser(responseBody)
@@ -71,10 +71,20 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
       const responseBody = await securityService.deleteUser(user)
 
       if (responseBody.status.isSuccess) {
-        navigate("/dashboard/security/user")
+        navigate("/dashboard/security/user", {
+          state: {
+            alert: {
+              type: "is-success",
+              message: responseBody.status.message,
+            },
+          },
+        })
       }
     } catch (e) {
-      console.error(e)
+      alertContext.setAlert(
+        "Delete user failed! Please refer console log for info",
+        "is-danger"
+      )
       setLoading(false)
     }
   }
