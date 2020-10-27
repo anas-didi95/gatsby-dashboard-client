@@ -1,4 +1,4 @@
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import React, { useContext, useEffect, useState } from "react"
 import Alert from "../../../../components/Alert"
 import Box from "../../../../components/Box"
@@ -62,6 +62,33 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
     })()
   }, [])
 
+  const onDelete = async () => {
+    if (!confirm("Are you sure to delete?")) {
+      return
+    }
+    try {
+      setLoading(true)
+      const responseBody = await securityService.deleteUser(user)
+
+      if (responseBody.status.isSuccess) {
+        navigate("/dashboard/security/user", {
+          state: {
+            alert: {
+              type: "is-success",
+              message: responseBody.status.message,
+            },
+          },
+        })
+      }
+    } catch (e) {
+      alertContext.setAlert(
+        "Delete user failed! Please refer console log for info",
+        "is-danger"
+      )
+      setLoading(false)
+    }
+  }
+
   return (
     <Panel title="User Detail" color="is-link">
       <Box>
@@ -87,7 +114,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
             color="is-danger"
             isOutlined
             isLoading={isLoading}
-            onClick={() => console.log("noop")}
+            onClick={onDelete}
           />
           <Link
             to="/dashboard/security/user/edit"

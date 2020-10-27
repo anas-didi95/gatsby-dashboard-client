@@ -144,7 +144,38 @@ const useSecurityService = () => {
     }
   }
 
-  return { getUserList, addUser, getUserById, updateUser }
+  const deleteUser = async (
+    user: TUser
+  ): Promise<{
+    status: {
+      isSuccess: boolean
+      message: string
+    }
+  }> => {
+    try {
+      const response = await fetch(
+        `${constants.getApiSecurity()}/api/user/${user.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authContext.getAccessToken()}`,
+          },
+          body: JSON.stringify({
+            version: user.version,
+          }),
+        }
+      )
+      const responseBody = await response.json()
+      return responseBody
+    } catch (e) {
+      console.error("[useSecurityService] deleteUser failed!", e)
+      throw e
+    }
+  }
+
+  return { getUserList, addUser, getUserById, updateUser, deleteUser }
 }
 
 export default useSecurityService
