@@ -48,7 +48,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         const responseBody = await securityService.getUserById(userId)
         setUser(responseBody)
@@ -63,6 +63,9 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   }, [])
 
   const onDelete = async () => {
+    if (!confirm("Are you sure to delete?")) {
+      return
+    }
     try {
       setLoading(true)
       const responseBody = await securityService.deleteUser(user)
