@@ -6,7 +6,7 @@ const useConstants = () => {
       console.error(
         "[useConstants] getApiSecurity failed! GATSBY_API_SECURITY is undefined"
       )
-      throw "GATSBY_API_SECURITY is undefined"
+      return ""
     }
   }
 
@@ -17,7 +17,7 @@ const useConstants = () => {
       console.error(
         "[useConstants] getApiBot failed! GATSBY_API_BOT is undefined"
       )
-      throw "GATSBY_API_BOT is undefined"
+      return ""
     }
   }
 
