@@ -4,10 +4,6 @@
 name: build
 
 on:
-  push:
-    branches:
-      - setup-build-workflow-action
-
   pull_request:
     branches:
       - main
