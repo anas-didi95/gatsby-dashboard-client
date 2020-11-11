@@ -1,6 +1,7 @@
 # Gatsby Dashboard Client
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d25f33cd-6ed6-4c1d-a08e-a34c3ec80143/deploy-status)](https://app.netlify.com/sites/anasdidi-dashboard/deploys)
+![build](https://github.com/anas-didi95/gatsby-dashboard-client/workflows/build/badge.svg)
 
 Dashboard client application developed using Gatsby and TypeScript.
 
