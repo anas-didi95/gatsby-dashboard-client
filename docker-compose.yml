@@ -8,6 +8,7 @@ services:
     environment:
       GATSBY_API_SECURITY: ${GATSBY_API_SECURITY?:GATSBY_API_SECURITY}
       GATSBY_API_BOT: ${GATSBY_API_BOT?:GATSBY_API_BOT}
+      GATSBY_API_BUDGET: ${GATSBY_API_BUDGET?:GATSBY_API_BUDGET}
     command: sleep infinity
     volumes:
       - ./:/workspace
