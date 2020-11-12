@@ -16,7 +16,7 @@ const StatusPage: React.FC<{ location: any }> = ({ location }) => {
   const dataList: TData[] = [
     { title: "Security", url: constants.getApiSecurity() },
     { title: "Bot", url: constants.getApiBot() },
-    { title: "Budget", url: "https://api.anasdidi.dev/budget" },
+    { title: "Budget", url: constants.getApiBudget() },
   ]
 
   return (

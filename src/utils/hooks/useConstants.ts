@@ -21,7 +21,19 @@ const useConstants = () => {
     }
   }
 
-  return { getApiSecurity, getApiBot }
+  const getApiBudget = (): string => {
+    if (process.env.GATSBY_API_BUDGET) {
+      return process.env.GATSBY_API_BUDGET
+    } else {
+      console.error(
+        "[useConstants] getApiBudget failed! GATSBY_API_BUDGET is undefined"
+      )
+      return ""
+    }
+
+  }
+
+  return { getApiSecurity, getApiBot, getApiBudget }
 }
 
 export default useConstants
