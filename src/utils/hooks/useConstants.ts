@@ -30,7 +30,6 @@ const useConstants = () => {
       )
       return ""
     }
-
   }
 
   return { getApiSecurity, getApiBot, getApiBudget }
