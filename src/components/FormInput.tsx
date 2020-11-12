@@ -16,7 +16,9 @@ const FormInput: React.FC<IFormInput> = ({
   name,
 }) => (
   <div className="field">
-    <label className="label">{label}</label>
+    <label className="label" htmlFor={name}>
+      {label}
+    </label>
     <div className="control">
       <input
         name={name}
