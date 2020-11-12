@@ -16,7 +16,7 @@ const StatusPage: React.FC<{ location: any }> = ({ location }) => {
   const dataList: TData[] = [
     { title: "Security", url: constants.getApiSecurity() },
     { title: "Bot", url: constants.getApiBot() },
-    { title: "Budget", url: "https://api.anasdidi.dev/budget" }
+    { title: "Budget", url: "https://api.anasdidi.dev/budget" },
   ]
 
   return (
@@ -28,7 +28,7 @@ const StatusPage: React.FC<{ location: any }> = ({ location }) => {
             <div className="column is-10">
               <Breadcrumb paths={["Status"]} />
               <br />
-              <div className="columns is-multiline">
+              <div className="columns is-multiline is-centered">
                 {dataList.map((data, i) => (
                   <div key={`data${i}`} className="column is-6">
                     <StatusPanel title={data.title} url={data.url} />
@@ -49,12 +49,14 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
   url,
 }) => {
   const [outcome, setOutcome] = useState<string>("")
+  const [content, setContent] = useState<string>("")
 
   useEffect(() => {
     ; (async () => {
       try {
         const response = await fetch(`${url}/ping`)
         const responseBody = await response.json()
+        setContent(JSON.stringify(responseBody).replace("[", "[\n\t").replace("]", "\n]"))
         setOutcome(responseBody.outcome)
       } catch (e) {
         console.log(e)
@@ -82,6 +84,7 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
             </LabelValue>
           </div>
         </div>
+        {content && <pre dangerouslySetInnerHTML={{ __html: content }} />}
       </Box>
     </Panel>
   )
