@@ -11,6 +11,7 @@ import FormInput from "../../../../components/FormInput"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
 import AlertContext from "../../../../utils/contexts/AlertContext"
+import LoadingContext from "../../../../utils/contexts/LoadingContext"
 import useSecurityService, {
   TUser,
 } from "../../../../utils/hooks/useSecurityService"
@@ -43,9 +44,9 @@ const AddForm: React.FC<{}> = () => {
     email: string
   }
   const { register, errors, handleSubmit, watch } = useForm<TForm>()
-  const [isLoading, setLoading] = useState<boolean>(false)
   const alertContext = useContext(AlertContext)
   const securityService = useSecurityService()
+  const loadingContext = useContext(LoadingContext)
 
   const onSubmit = async (data: TForm) => {
     try {
@@ -58,9 +59,9 @@ const AddForm: React.FC<{}> = () => {
         version: 0,
       }
       alertContext.clearAlert()
-      setLoading(true)
+      loadingContext.onLoading()
       const responseBody = await securityService.addUser(user)
-      setLoading(false)
+      loadingContext.offLoading()
 
       if (responseBody.status.isSuccess) {
         navigate("/dashboard/security/user", {
@@ -75,7 +76,7 @@ const AddForm: React.FC<{}> = () => {
         alertContext.setAlert(responseBody.status.message, "is-danger")
       }
     } catch (e) {
-      setLoading(false)
+      loadingContext.offLoading()
       alertContext.setAlert(
         "Add user failed! Please refer console log for info",
         "is-danger"
@@ -156,7 +157,6 @@ const AddForm: React.FC<{}> = () => {
               type="submit"
               onClick={handleSubmit(onSubmit)}
               color="is-primary"
-              isLoading={isLoading}
             />
           </ButtonGroup>
         </Form>

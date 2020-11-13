@@ -52,7 +52,7 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
   const [content, setContent] = useState<string>("")
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         const response = await fetch(`${url}/ping`)
         const responseBody = await response.json()
@@ -81,8 +81,8 @@ const StatusPanel: React.FC<{ title: string; url: string }> = ({
               ) : outcome === "DOWN" ? (
                 <Tag value="Offline" color="is-danger" />
               ) : (
-                <Tag value="Checking" color="is-warning" />
-              )}
+                    <Tag value="Checking" color="is-warning" />
+                  )}
             </LabelValue>
           </div>
         </div>
