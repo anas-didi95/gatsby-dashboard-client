@@ -55,7 +55,7 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
   const loadingContext = useContext(LoadingContext)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         loadingContext.onLoading()
         const responseBody = await securityService.getUserById(userId)

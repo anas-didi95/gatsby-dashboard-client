@@ -24,8 +24,11 @@ const Button: React.FC<IButton> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`button ${!!color ? color : ""} ${!!isInverted ? "is-inverted" : ""
-        } ${!!isOutlined ? "is-outlined" : ""} ${loadingContext.isLoading() ? "is-loading" : ""}`}
+      className={`button ${!!color ? color : ""} ${
+        !!isInverted ? "is-inverted" : ""
+      } ${!!isOutlined ? "is-outlined" : ""} ${
+        loadingContext.isLoading() ? "is-loading" : ""
+      }`}
       disabled={loadingContext.isLoading()}
     >
       {label}

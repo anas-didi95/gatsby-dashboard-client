@@ -49,7 +49,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
   const loadingContext = useContext(LoadingContext)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         loadingContext.onLoading()
         const responseBody = await securityService.getUserById(userId)
@@ -121,7 +121,9 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
           <Link
             to="/dashboard/security/user/edit"
             state={{ id: userId }}
-            className={`button is-primary ${loadingContext.isLoading() ? "is-loading" : ""}`}
+            className={`button is-primary ${
+              loadingContext.isLoading() ? "is-loading" : ""
+            }`}
           >
             Edit
           </Link>

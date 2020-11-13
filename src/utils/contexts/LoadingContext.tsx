@@ -7,8 +7,8 @@ interface ILoadingContext {
 }
 const LoadingContext = createContext<ILoadingContext>({
   isLoading: () => false,
-  onLoading: () => { },
-  offLoading: () => { }
+  onLoading: () => {},
+  offLoading: () => {},
 })
 
 const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -16,10 +16,14 @@ const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [data, setData] = useState<TData>({ isLoading: false })
 
   const isLoading = () => data.isLoading
-  const onLoading = () => setData(prev => ({ ...prev, isLoading: true }))
-  const offLoading = () => setData(prev => ({ ...prev, isLoading: false }))
+  const onLoading = () => setData((prev) => ({ ...prev, isLoading: true }))
+  const offLoading = () => setData((prev) => ({ ...prev, isLoading: false }))
 
-  return <LoadingContext.Provider value={{ isLoading, onLoading, offLoading }}>{children}</LoadingContext.Provider>
+  return (
+    <LoadingContext.Provider value={{ isLoading, onLoading, offLoading }}>
+      {children}
+    </LoadingContext.Provider>
+  )
 }
 
 export default LoadingContext

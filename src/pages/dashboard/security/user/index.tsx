@@ -38,7 +38,7 @@ const UserListTable: React.FC<{}> = () => {
   const alertContext = useContext(AlertContext)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         const userList = await securityService.getUserList()
         setUserList(userList)
