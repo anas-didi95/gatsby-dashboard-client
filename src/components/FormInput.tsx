@@ -15,20 +15,21 @@ const FormInput: React.FC<IFormInput> = ({
   register,
   name,
 }) => (
-  <div className="field">
-    <label className="label" htmlFor={name}>
-      {label}
-    </label>
-    <div className="control">
-      <input
-        name={name}
-        className={`input ${!!error ? "is-danger" : "is-link"}`}
-        type={type}
-        ref={register}
-      />
+    <div className="field">
+      <label className="label" htmlFor={name}>
+        {label}
+      </label>
+      <div className="control">
+        <input
+          id={name}
+          name={name}
+          className={`input ${!!error ? "is-danger" : "is-link"}`}
+          type={type}
+          ref={register}
+        />
+      </div>
+      {!!error && <p className="help is-danger">{error}</p>}
     </div>
-    {!!error && <p className="help is-danger">{error}</p>}
-  </div>
-)
+  )
 
 export default FormInput
