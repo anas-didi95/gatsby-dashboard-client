@@ -11,9 +11,9 @@ const LoadingContext = createContext<ILoadingContext>({
   offLoading: () => {},
 })
 
+type TLoadingData = { isLoading: boolean }
 const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  type TData = { isLoading: boolean }
-  const [data, setData] = useState<TData>({ isLoading: false })
+  const [data, setData] = useState<TLoadingData>({ isLoading: false })
 
   const isLoading = () => data.isLoading
   const onLoading = () => setData((prev) => ({ ...prev, isLoading: true }))
