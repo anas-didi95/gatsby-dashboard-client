@@ -12,6 +12,7 @@ import LabelValue from "../../../../components/LabelValue"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
 import AlertContext from "../../../../utils/contexts/AlertContext"
+import LoadingContext from "../../../../utils/contexts/LoadingContext"
 import useSecurityService, {
   TUser,
 } from "../../../../utils/hooks/useSecurityService"
@@ -50,15 +51,16 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
     version: -1,
   })
   const securityService = useSecurityService()
-  const [isLoading, setLoading] = useState<boolean>(true)
   const alertContext = useContext(AlertContext)
+  const loadingContext = useContext(LoadingContext)
 
   useEffect(() => {
     ;(async () => {
       try {
+        loadingContext.onLoading()
         const responseBody = await securityService.getUserById(userId)
         setUser({ ...responseBody, password: "****" })
-        setLoading(false)
+        loadingContext.offLoading()
       } catch (e) {
         console.error(e)
       }
@@ -73,7 +75,7 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
   const onSubmit = async (data: TForm) => {
     try {
       alertContext.clearAlert()
-      setLoading(true)
+      loadingContext.onLoading()
       const responseBody = await securityService.updateUser({
         email: data.email,
         fullName: data.fullName,
@@ -92,11 +94,11 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
         })
       }
     } catch (e) {
+      loadingContext.offLoading()
       alertContext.setAlert(
         "Update user failed! Please refer console log for info",
         "is-danger"
       )
-      setLoading(false)
     }
   }
 
@@ -143,14 +145,12 @@ const EditForm: React.FC<{ userId: string }> = ({ userId }) => {
               color="is-danger"
               isOutlined
               type="button"
-              isLoading={isLoading}
               onClick={onBack}
             />
             <Button
               label="Update"
               color="is-primary"
               type="submit"
-              isLoading={isLoading}
               onClick={handleSubmit(onSubmit)}
             />
           </ButtonGroup>

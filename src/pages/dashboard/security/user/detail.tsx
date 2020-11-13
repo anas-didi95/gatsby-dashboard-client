@@ -9,6 +9,7 @@ import LabelValue from "../../../../components/LabelValue"
 import Panel from "../../../../components/Panel"
 import AppLayout from "../../../../layouts/AppLayout"
 import AlertContext from "../../../../utils/contexts/AlertContext"
+import LoadingContext from "../../../../utils/contexts/LoadingContext"
 import useSecurityService, {
   TUser,
 } from "../../../../utils/hooks/useSecurityService"
@@ -45,15 +46,17 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
     version: 0,
   })
   const alertContext = useContext(AlertContext)
-  const [isLoading, setLoading] = useState(true)
+  const loadingContext = useContext(LoadingContext)
 
   useEffect(() => {
     ;(async () => {
       try {
+        loadingContext.onLoading()
         const responseBody = await securityService.getUserById(userId)
         setUser(responseBody)
-        setLoading(false)
+        loadingContext.offLoading()
       } catch (e) {
+        loadingContext.offLoading()
         alertContext.setAlert(
           "Get user detail failed! Please refer console log for info",
           "is-danger"
@@ -67,7 +70,7 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
       return
     }
     try {
-      setLoading(true)
+      loadingContext.onLoading()
       const responseBody = await securityService.deleteUser(user)
 
       if (responseBody.status.isSuccess) {
@@ -81,11 +84,11 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
         })
       }
     } catch (e) {
+      loadingContext.offLoading()
       alertContext.setAlert(
         "Delete user failed! Please refer console log for info",
         "is-danger"
       )
-      setLoading(false)
     }
   }
 
@@ -113,13 +116,14 @@ const UserDetailPanel: React.FC<{ userId: string }> = ({ userId }) => {
             type="button"
             color="is-danger"
             isOutlined
-            isLoading={isLoading}
             onClick={onDelete}
           />
           <Link
             to="/dashboard/security/user/edit"
             state={{ id: userId }}
-            className={`button is-primary ${isLoading ? "is-loading" : ""}`}
+            className={`button is-primary ${
+              loadingContext.isLoading() ? "is-loading" : ""
+            }`}
           >
             Edit
           </Link>

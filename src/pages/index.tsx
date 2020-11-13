@@ -1,5 +1,5 @@
 import { navigate } from "gatsby"
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { useForm } from "react-hook-form"
 import Alert from "../components/Alert"
 import Box from "../components/Box"
@@ -10,6 +10,7 @@ import FormInput from "../components/FormInput"
 import AppLayout from "../layouts/AppLayout"
 import AlertContext from "../utils/contexts/AlertContext"
 import AuthContext from "../utils/contexts/AuthContext"
+import LoadingContext from "../utils/contexts/LoadingContext"
 import useAuth from "../utils/hooks/useAuth"
 
 const IndexPage: React.FC<{ location: any }> = ({ location }) => (
@@ -31,13 +32,13 @@ const LoginForm: React.FC<{}> = () => {
   const auth = useAuth()
   const authContext = useContext(AuthContext)
   const alertContext = useContext(AlertContext)
-  const [hasSubmit, setHasSubmit] = useState<boolean>(false)
+  const loadingContext = useContext(LoadingContext)
 
   const onSubmit = async (data: Form) => {
-    if (hasSubmit) {
+    if (loadingContext.isLoading()) {
       return
     }
-    setHasSubmit(true)
+    loadingContext.onLoading()
     alertContext.clearAlert()
     const responseBody = await auth.login(data.username, data.password)
 
@@ -46,7 +47,7 @@ const LoginForm: React.FC<{}> = () => {
       navigate("/dashboard")
     } else {
       alertContext.setAlert(responseBody.status.message, "is-danger")
-      setHasSubmit(false)
+      loadingContext.offLoading()
     }
   }
 
@@ -78,7 +79,6 @@ const LoginForm: React.FC<{}> = () => {
                   color="is-primary"
                   label="Login"
                   onClick={handleSubmit(onSubmit)}
-                  isLoading={hasSubmit}
                 />
               </ButtonGroup>
             </Form>

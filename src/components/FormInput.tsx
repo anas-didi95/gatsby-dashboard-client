@@ -21,6 +21,7 @@ const FormInput: React.FC<IFormInput> = ({
     </label>
     <div className="control">
       <input
+        id={name}
         name={name}
         className={`input ${!!error ? "is-danger" : "is-link"}`}
         type={type}

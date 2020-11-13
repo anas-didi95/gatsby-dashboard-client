@@ -7,6 +7,7 @@ import AlertContext, {
   TAlert,
 } from "../utils/contexts/AlertContext"
 import AuthContext from "../utils/contexts/AuthContext"
+import LoadingContext from "../utils/contexts/LoadingContext"
 import useSiteMetadata from "../utils/hooks/useMetadataQuery"
 
 interface IAppLayout {
@@ -33,6 +34,7 @@ const AppLayout: React.FC<IAppLayout> = ({
   const [isShow, setShow] = useState<boolean>(false)
   const authContext = useContext(AuthContext)
   const alertContext = useContext(AlertContext)
+  const loadingContext = useContext(LoadingContext)
 
   useEffect(() => {
     if (needAuth && !authContext.isAuth()) {
@@ -53,6 +55,8 @@ const AppLayout: React.FC<IAppLayout> = ({
         alertContext.setAlert(alert.message, alert.type)
       }
     }
+
+    loadingContext.offLoading()
 
     return () => {
       alertContext.clearAlert()
